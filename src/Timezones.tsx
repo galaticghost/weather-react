@@ -10,17 +10,16 @@ const options: Array<Timezones> = [
     {value: "America%2FSao_Paulo", label: "America/São Paulo"}
 ];
 
-export function getTimezone(props : Timezones){
-    return (
-        props.value
-    );
+interface Props{
+    timezone: string;
+    setTimezone: (value: string) => void;
 }
 
-export default function Timezones(){
-    const [timezone, setTimezones] = useState("America%2FSao_Paulo");
+export default function Timezones({timezone, setTimezone}: Props){
 
-    const handleChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTimezones(event.target.value);
+
+    const handleChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setTimezone(event.target.value);
     } 
     return (
         <div>

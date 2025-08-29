@@ -6,8 +6,9 @@ import Timezones from './Timezones.tsx';
 
 function App() {
   const [count, setCount] = useState(0)
-
+  const [timezone, setTimezone] = useState("America%2FSao_Paulo");
   return (
+    
     <>
       <div>
         <a href="https://vite.dev" target="_blank">
@@ -22,8 +23,8 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <Butone/>
-        <Timezones />
+        <Butone timezone={timezone}/>
+        <Timezones timezone={timezone} setTimezone={setTimezone} />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

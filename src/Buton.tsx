@@ -1,11 +1,10 @@
-import {getTimezone} from './Timezones.tsx';
+interface Props {
+    timezone: string;
+}
 
-const url = "https://api.open-meteo.com/v1/forecast?";
-
-export default function Button() {
+export default function Button({timezone}: Props) {
     async function getWeather() {
-        console.log(getTimezone());
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=-30.0328&longitude=-51.2302&hourly=temperature_2m&timezone=${getTimezone()}&forecast_days=1`;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=-30.0328&longitude=-51.2302&hourly=temperature_2m&timezone=${timezone}&forecast_days=1`;
 
         try {
             const response = await fetch(url);
