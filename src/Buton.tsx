@@ -1,6 +1,11 @@
+import {getTimezone} from './Timezones.tsx';
+
+const url = "https://api.open-meteo.com/v1/forecast?";
+
 export default function Button() {
     async function getWeather() {
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=-30.0328&longitude=-51.2302&hourly=temperature_2m&timezone=America%2FSao_Paulo&forecast_days=1";
+        console.log(getTimezone());
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=-30.0328&longitude=-51.2302&hourly=temperature_2m&timezone=${getTimezone()}&forecast_days=1`;
 
         try {
             const response = await fetch(url);
@@ -25,5 +30,4 @@ export default function Button() {
     return (
         <button onClick={getWeather}>Balduo</button>
     )
-
 }
