@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import WeatherButton from './Components/WeatherButton.tsx';
 import Timezones from './Components/Timezones.tsx';
 import TemperatureUnit from './Components/TemperatureUnit.tsx';
@@ -10,6 +8,8 @@ function App() {
   const [temperatureUnit, setTemperatureUnit] = useState("celsius");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [temperature, setTemperature] = useState(0);
+  const d = new Date();
 
   function getWeather() {
     const url = `https://api.open-meteo.com/v1/forecast?` +
@@ -25,31 +25,21 @@ function App() {
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
         }
-        return response.json()
+        return response.json();
       })
       .then((data) => {
-        console.log(data);
-        return data;
+        console.log(data)
+        setTemperature(data.hourly.temperature_2m[d.getHours()])
       })
-      .catch((error: unknown) => {
-        let errorMessage = "Something went wrong";
-
-        if (error instanceof Error) {
-          errorMessage = error.message;
-        }
-
-        console.error(errorMessage);
-      })
+      .catch((error: Error) => { console.error(error.message) });
   }
 
   const handleTimezoneChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTimezone(event.target.value);
-    console.log(timezone);
   }
 
   const handleTemperatureUnitChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTemperatureUnit(event.target.value);
-    console.log(event.target.value);
   }
 
   function success(pos: GeolocationPosition) {
@@ -65,8 +55,8 @@ function App() {
     }
   }
 
-  async function test() {
-    await fetch("http://ip-api.com/json/")
+  function test() {
+    fetch("http://ip-api.com/json/")
       .then(response => {
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
@@ -90,31 +80,17 @@ function App() {
   }
 
   return (
-
+    // TODO CHANGE TITLE
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
       <div className="card">
         <button onClick={test}>
           count is não funciona
         </button>
+        <p>{temperature}°{temperatureUnit === "celsius" ? "C" : "F"}</p>
         <WeatherButton getWeather={getWeather} />
         <Timezones timezone={timezone} onChange={handleTimezoneChange} />
         <TemperatureUnit temperatureUnit={temperatureUnit} onChange={handleTemperatureUnitChange} />
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }

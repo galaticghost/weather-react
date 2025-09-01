@@ -8,7 +8,7 @@ interface Props {
 export default function TemperatureUnitSelection({ temperatureUnit, onChange }: Props) {
     return (
         <div>
-            <label htmlFor=""></label>
+            <label htmlFor="temperatureUnit">Unidade de temperatura</label>
             <select
                 name="temperatureUnit"
                 id="temperatureUnit"

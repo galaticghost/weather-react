@@ -19,7 +19,7 @@ export default function Timezones({ timezone, onChange }: Props) {
 
     return (
         <div>
-            <label htmlFor="timezones">Escolha a sua timezone: </label>
+            <label htmlFor="timezones">Fuso horário</label>
             <select
                 name="timezones"
                 id="timezones"
