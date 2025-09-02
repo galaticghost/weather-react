@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import WeatherButton from './Components/WeatherButton.tsx';
 import Timezones from './Components/Timezones.tsx';
 import TemperatureUnit from './Components/TemperatureUnit.tsx';
+import './styles/root.css';
 
 function App() {
-  const [timezone, setTimezone] = useState("America%2FSao_Paulo");
+  const [timezone, setTimezone] = useState("America/Sao_Paulo");
   const [temperatureUnit, setTemperatureUnit] = useState("celsius");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [temperature, setTemperature] = useState(0);
+
+  useEffect(() => {
+      test()
+      if (latitude && longitude && timezone) {
+        getWeather();
+      }
+  }, [timezone,latitude,longitude]);
   const d = new Date();
 
   function getWeather() {
@@ -19,7 +27,7 @@ function App() {
       `&timezone=${timezone}` +
       `&forecast_days=1` +
       `&temperature_unit=${temperatureUnit}`;
-
+    console.log(latitude + longitude + timezone + temperatureUnit);
     return fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -42,19 +50,6 @@ function App() {
     setTemperatureUnit(event.target.value);
   }
 
-  function success(pos: GeolocationPosition) {
-    const cord: GeolocationCoordinates = pos.coords;
-    setLatitude(cord.latitude.toString());
-    setLongitude(cord.longitude.toString());
-  }
-
-  function error(err: GeolocationPositionError) {
-    //test();
-    if (err instanceof Error) {
-      console.warn(`ERROR: ${err.message}`);
-    }
-  }
-
   function test() {
     fetch("http://ip-api.com/json/")
       .then(response => {
@@ -65,6 +60,7 @@ function App() {
       })
       .then(coords => {
         console.log(coords);
+        setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
         setLatitude(coords.lat.toString());
         setLongitude(coords.lon.toString());
       })
@@ -72,25 +68,20 @@ function App() {
         console.log(error.message);
       });
   }
-
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(success, error, { timeout: 1000 });
-  } else {
-    console.log("nao tem"); // TODO
-  }
-
   return (
     // TODO CHANGE TITLE
     <>
-      <div className="card">
-        <button onClick={test}>
-          count is não funciona
-        </button>
-        <p>{temperature}°{temperatureUnit === "celsius" ? "C" : "F"}</p>
-        <WeatherButton getWeather={getWeather} />
-        <Timezones timezone={timezone} onChange={handleTimezoneChange} />
-        <TemperatureUnit temperatureUnit={temperatureUnit} onChange={handleTemperatureUnitChange} />
-      </div>
+      <main className="root">
+        <div className="card">
+          <button onClick={test}>
+            count is não funciona
+          </button>
+          <p>{temperature}°{temperatureUnit === "celsius" ? "C" : "F"}</p>
+          <WeatherButton getWeather={getWeather} />
+          <Timezones timezone={timezone} onChange={handleTimezoneChange} />
+          <TemperatureUnit temperatureUnit={temperatureUnit} onChange={handleTemperatureUnitChange} />
+        </div>
+      </main>
     </>
   )
 }
