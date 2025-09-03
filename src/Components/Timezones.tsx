@@ -1,11 +1,11 @@
 import type { ChangeEventHandler } from "react";
 
-interface TimezonesPerContinent {
+interface ContinentTimezones {
     continente: string,
-    timezones: Array<Timezones>
+    timezones: Array<Timezone>
 }
 
-interface Timezones {
+interface Timezone {
     value: string,
     label: string
 }
@@ -15,7 +15,7 @@ interface Props {
     onChange: (ChangeEventHandler<HTMLSelectElement>);
 }
 
-const options: Array<TimezonesPerContinent> = [
+const options: Array<ContinentTimezones> = [
     {
         continente: "América Latina", timezones: [
             { value: "America%2FSao_Paulo", label: "America/São Paulo" },
@@ -80,11 +80,11 @@ export default function Timezones({ timezone, onChange }: Props) {
                 value={timezone}
                 onChange={onChange}
             >
-                {options.map((option: TimezonesPerContinent) => (
-                    <optgroup key={option.continente} label={option.continente}>{
-                        option.timezones.map((optionTime: Timezones) => (
-                            <option key={optionTime.value} value={optionTime.value}>
-                                {optionTime.label}
+                {options.map((optgroup: ContinentTimezones) => (
+                    <optgroup key={optgroup.continente} label={optgroup.continente}>{
+                        optgroup.timezones.map((option: Timezone) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
                             </option>
                         ))
                     }</optgroup>
