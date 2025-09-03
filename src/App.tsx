@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import WeatherButton from './Components/WeatherButton.tsx';
 import Timezones from './Components/Timezones.tsx';
 import TemperatureUnit from './Components/TemperatureUnit.tsx';
-import './styles/root.css';
+import './styles/styles.css';
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -10,6 +10,8 @@ function App() {
 	const [latitude, setLatitude] = useState("");
 	const [longitude, setLongitude] = useState("");
 	const [temperature, setTemperature] = useState(0);
+
+	const abortRef = useRef<AbortController | null>(null);
 
 	useEffect(() => {
 		getCoords();
@@ -19,9 +21,18 @@ function App() {
 		if (latitude && longitude && timezone) {
 			getWeather();
 		}
+
 	}, [timezone, latitude, longitude, temperatureUnit]);
 
 	async function getWeather() {
+		if (abortRef.current) {
+			abortRef.current.abort("The user has made another request");
+		}
+
+		const controller = new AbortController();
+		abortRef.current = controller;
+		const signal = abortRef.current.signal;
+
 		const url = `https://api.open-meteo.com/v1/forecast?` +
 			`latitude=${latitude}` +
 			`&longitude=${longitude}` +
@@ -32,13 +43,16 @@ function App() {
 		const d = new Date();
 
 		try {
-			const response = await fetch(url);
+			const response = await fetch(url, { signal });
 			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
 
 			const data = await response.json();
 			setTemperature(data.hourly.temperature_2m[d.getHours()]);
-      
+
 		} catch (error: unknown) {
+			if (signal.reason) {
+				console.error(signal.reason);
+			}
 			if (error instanceof Error) {
 				console.error(error.message);
 			}
@@ -74,14 +88,12 @@ function App() {
 	return (
 		// TODO CHANGE TITLE
 		<>
-			<main className="root">
-				<div className="card">
-					<p>{temperature}°{temperatureUnit === "celsius" ? "C" : "F"}</p>
-					<WeatherButton getWeather={getWeather} />
-					<Timezones timezone={timezone} onChange={handleTimezoneChange} />
-					<TemperatureUnit temperatureUnit={temperatureUnit} onChange={handleTemperatureUnitChange} />
-				</div>
-			</main>
+			<div className="card">
+				<p className="temperature">{temperature}°{temperatureUnit === "celsius" ? "C" : "F"}</p>
+				<WeatherButton getWeather={getWeather} />
+				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
+				<TemperatureUnit temperatureUnit={temperatureUnit} onChange={handleTemperatureUnitChange} />
+			</div>
 		</>
 	)
 }

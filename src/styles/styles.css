@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background-image: url("../assets/background.jpg");
+}
+
+.root {
+    display: flex;
+    height: 100%;
+}
+
+.card {
+    background-color: rgb(255 255 255 / 70%);
+    backdrop-filter: blur(10px);
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 10%;
+    width: 50%;
+    height: 80vh;
+}
+
+.temperature {
+    font-family: "IBM Plex Sans", sans-serif;
+}

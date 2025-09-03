@@ -1,5 +1,10 @@
 import type { ChangeEventHandler } from "react";
 
+interface TimezonesPerContinent {
+    continente: string,
+    timezones: Array<Timezones>
+}
+
 interface Timezones {
     value: string,
     label: string
@@ -10,12 +15,62 @@ interface Props {
     onChange: (ChangeEventHandler<HTMLSelectElement>);
 }
 
-const options: Array<Timezones> = [
-    { value: "America%2FLos_Angeles", label: "America/Los Angeles" },
-    { value: "America%2FSao_Paulo", label: "America/São Paulo" }
-];
-export default function Timezones({ timezone, onChange }: Props) {
+const options: Array<TimezonesPerContinent> = [
+    {
+        continente: "América Latina", timezones: [
+            { value: "America%2FSao_Paulo", label: "America/São Paulo" },
+            { value: "America%2FBuenos_Aires", label: "America/Buenos Aires" },
+            { value: "America%2FSantiago", label: "America/Santiago" },
+            { value: "America%2FLima", label: "America/Lima" }]
+    },
+    {
+        continente: "América do Norte", timezones: [
+            { value: "America%2FNew_York", label: "America/New York" },
+            { value: "America%2FChicago", label: "America/Chicago" },
+            { value: "America%2FDenver", label: "America/Denver" },
+            { value: "America%2FLos_Angeles", label: "America/Los Angeles" },
+            { value: "America%2FToronto", label: "America/Toronto" },
+            { value: "America%2FVancouver", label: "America/Vancouver" },
+            { value: "America%2FMexico_City", label: "America/Mexico City" },]
+    },
 
+    {
+        continente: "Europa", timezones: [
+            { value: "Europe%2FLondon", label: "Europe/London" },
+            { value: "Europe%2FParis", label: "Europe/Paris" },
+            { value: "Europe%2FBerlin", label: "Europe/Berlin" },
+            { value: "Europe%2FMadrid", label: "Europe/Madrid" },
+            { value: "Europe%2FRome", label: "Europe/Rome" },
+            { value: "Europe%2FMoscow", label: "Europe/Moscow" },]
+    },
+
+    {
+        continente: "Ásia", timezones: [
+            { value: "Asia%2FDubai", label: "Asia/Dubai" },
+            { value: "Asia%2FKolkata", label: "Asia/Kolkata" },
+            { value: "Asia%2FShanghai", label: "Asia/Shanghai" },
+            { value: "Asia%2FTokyo", label: "Asia/Tokyo" },
+            { value: "Asia%2FSeoul", label: "Asia/Seoul" },
+            { value: "Asia%2FSingapore", label: "Asia/Singapore" },
+            { value: "Asia%2FBangkok", label: "Asia/Bangkok" },]
+    },
+
+    {
+        continente: "Oceania", timezones: [
+            { value: "Australia%2FSydney", label: "Australia/Sydney" },
+            { value: "Pacific%2FAuckland", label: "Pacific/Auckland" }]
+    },
+
+    {
+        continente: "África", timezones: [
+            { value: "Africa%2FCairo", label: "Africa/Cairo" },
+            { value: "Africa%2FJohannesburg", label: "Africa/Johannesburg" },
+            { value: "Africa%2FLagos", label: "Africa/Lagos" },
+            { value: "Africa%2FNairobi", label: "Africa/Nairobi" },]
+    }
+];
+
+export default function Timezones({ timezone, onChange }: Props) {
     return (
         <div>
             <label htmlFor="timezones">Fuso horário:</label>
@@ -25,8 +80,14 @@ export default function Timezones({ timezone, onChange }: Props) {
                 value={timezone}
                 onChange={onChange}
             >
-                {options.map((option: Timezones) => (
-                    <option value={option.value} key={option.value}>{option.label}</option>
+                {options.map((option: TimezonesPerContinent) => (
+                    <optgroup key={option.continente} label={option.continente}>{
+                        option.timezones.map((optionTime: Timezones) => (
+                            <option key={optionTime.value} value={optionTime.value}>
+                                {optionTime.label}
+                            </option>
+                        ))
+                    }</optgroup>
                 ))}
             </select>
         </div>
