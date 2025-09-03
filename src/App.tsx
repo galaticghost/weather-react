@@ -5,7 +5,7 @@ import TemperatureUnit from './Components/TemperatureUnit.tsx';
 import './styles/root.css';
 
 function App() {
-	const [timezone, setTimezone] = useState("America/Sao_Paulo");
+	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
 	const [latitude, setLatitude] = useState("");
 	const [longitude, setLongitude] = useState("");
@@ -13,18 +13,15 @@ function App() {
 
 	useEffect(() => {
 		getCoords();
-		setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	}, []);
 
 	useEffect(() => {
-		const controller = new AbortController();
-
 		if (latitude && longitude && timezone) {
-			getWeather(controller);
+			getWeather();
 		}
 	}, [timezone, latitude, longitude, temperatureUnit]);
 
-	async function getWeather(controller: AbortController) {
+	async function getWeather() {
 		const url = `https://api.open-meteo.com/v1/forecast?` +
 			`latitude=${latitude}` +
 			`&longitude=${longitude}` +
@@ -35,11 +32,12 @@ function App() {
 		const d = new Date();
 
 		try {
-			const response = await fetch(url, { signal: controller.signal });
+			const response = await fetch(url);
 			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
+
 			const data = await response.json();
 			setTemperature(data.hourly.temperature_2m[d.getHours()]);
-			return () => controller.abort();
+      
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.error(error.message);

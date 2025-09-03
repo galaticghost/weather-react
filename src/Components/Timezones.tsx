@@ -1,25 +1,24 @@
 import type { ChangeEventHandler } from "react";
 
-export interface Timezones {
+interface Timezones {
     value: string,
     label: string
 }
-
-const options: Array<Timezones> = [
-    { value: "America%2FLos_Angeles", label: "America/Los Angeles" },
-    { value: "America%2FSao_Paulo", label: "America/São Paulo" }
-];
 
 interface Props {
     timezone: string;
     onChange: (ChangeEventHandler<HTMLSelectElement>);
 }
 
+const options: Array<Timezones> = [
+    { value: "America%2FLos_Angeles", label: "America/Los Angeles" },
+    { value: "America%2FSao_Paulo", label: "America/São Paulo" }
+];
 export default function Timezones({ timezone, onChange }: Props) {
 
     return (
         <div>
-            <label htmlFor="timezones">Fuso horário</label>
+            <label htmlFor="timezones">Fuso horário:</label>
             <select
                 name="timezones"
                 id="timezones"
