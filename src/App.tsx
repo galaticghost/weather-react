@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import WeatherButton from './Components/WeatherButton.tsx';
 import Timezones from './Components/Timezones.tsx';
-import TemperatureUnit from './Components/TemperatureUnit.tsx';
+import Temperature from './Components/Temperature.tsx';
 import './styles/styles.css';
+import './styles/reset.css';
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
 	const [latitude, setLatitude] = useState("");
 	const [longitude, setLongitude] = useState("");
+	const [apparentTemperature, setApparentTemperature] = useState(0);
 	const [temperature, setTemperature] = useState(0);
 
 	const abortRef = useRef<AbortController | null>(null);
@@ -36,10 +38,11 @@ function App() {
 		const url = `https://api.open-meteo.com/v1/forecast?` +
 			`latitude=${latitude}` +
 			`&longitude=${longitude}` +
-			`&hourly=temperature_2m` +
+			`&hourly=temperature_2m,apparent_temperature` +
 			`&timezone=${timezone}` +
 			`&forecast_days=1` +
-			`&temperature_unit=${temperatureUnit}`;
+			`&temperature_unit=${temperatureUnit}` +
+			`&current=temperature_2m,apparent_temperature`;
 		const d = new Date();
 
 		try {
@@ -47,7 +50,9 @@ function App() {
 			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
 
 			const data = await response.json();
+			console.log(data);
 			setTemperature(data.hourly.temperature_2m[d.getHours()]);
+			setApparentTemperature(data.hourly.apparent_temperature[d.getHours()]);
 
 		} catch (error: unknown) {
 			if (signal.reason) {
@@ -63,8 +68,8 @@ function App() {
 		setTimezone(event.target.value);
 	}
 
-	const handleTemperatureUnitChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setTemperatureUnit(event.target.value);
+	const handleTemperatureUnitChange: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+		setTemperatureUnit(event.currentTarget.value);
 	}
 
 	function getCoords() {
@@ -89,10 +94,14 @@ function App() {
 		// TODO CHANGE TITLE
 		<>
 			<div className="card">
-				<p className="temperature">{temperature}°{temperatureUnit === "celsius" ? "C" : "F"}</p>
+				<Temperature
+					temperatureUnit={temperatureUnit}
+					currentTemperature={temperature}
+					apparentTemperature={apparentTemperature}
+					onTemperatureUnitChange={handleTemperatureUnitChange}
+				/>
 				<WeatherButton getWeather={getWeather} />
 				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
-				<TemperatureUnit temperatureUnit={temperatureUnit} onChange={handleTemperatureUnitChange} />
 			</div>
 		</>
 	)

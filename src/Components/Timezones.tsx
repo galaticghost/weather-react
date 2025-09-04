@@ -1,7 +1,7 @@
 import type { ChangeEventHandler } from "react";
 
 interface ContinentTimezones {
-    continente: string,
+    continent: string,
     timezones: Array<Timezone>
 }
 
@@ -17,14 +17,14 @@ interface Props {
 
 const options: Array<ContinentTimezones> = [
     {
-        continente: "América Latina", timezones: [
+        continent: "América Latina", timezones: [
             { value: "America%2FSao_Paulo", label: "America/São Paulo" },
             { value: "America%2FBuenos_Aires", label: "America/Buenos Aires" },
             { value: "America%2FSantiago", label: "America/Santiago" },
             { value: "America%2FLima", label: "America/Lima" }]
     },
     {
-        continente: "América do Norte", timezones: [
+        continent: "América do Norte", timezones: [
             { value: "America%2FNew_York", label: "America/New York" },
             { value: "America%2FChicago", label: "America/Chicago" },
             { value: "America%2FDenver", label: "America/Denver" },
@@ -35,7 +35,7 @@ const options: Array<ContinentTimezones> = [
     },
 
     {
-        continente: "Europa", timezones: [
+        continent: "Europa", timezones: [
             { value: "Europe%2FLondon", label: "Europe/London" },
             { value: "Europe%2FParis", label: "Europe/Paris" },
             { value: "Europe%2FBerlin", label: "Europe/Berlin" },
@@ -45,7 +45,7 @@ const options: Array<ContinentTimezones> = [
     },
 
     {
-        continente: "Ásia", timezones: [
+        continent: "Ásia", timezones: [
             { value: "Asia%2FDubai", label: "Asia/Dubai" },
             { value: "Asia%2FKolkata", label: "Asia/Kolkata" },
             { value: "Asia%2FShanghai", label: "Asia/Shanghai" },
@@ -56,13 +56,13 @@ const options: Array<ContinentTimezones> = [
     },
 
     {
-        continente: "Oceania", timezones: [
+        continent: "Oceania", timezones: [
             { value: "Australia%2FSydney", label: "Australia/Sydney" },
             { value: "Pacific%2FAuckland", label: "Pacific/Auckland" }]
     },
 
     {
-        continente: "África", timezones: [
+        continent: "África", timezones: [
             { value: "Africa%2FCairo", label: "Africa/Cairo" },
             { value: "Africa%2FJohannesburg", label: "Africa/Johannesburg" },
             { value: "Africa%2FLagos", label: "Africa/Lagos" },
@@ -81,7 +81,7 @@ export default function Timezones({ timezone, onChange }: Props) {
                 onChange={onChange}
             >
                 {options.map((optgroup: ContinentTimezones) => (
-                    <optgroup key={optgroup.continente} label={optgroup.continente}>{
+                    <optgroup key={optgroup.continent} label={optgroup.continent}>{
                         optgroup.timezones.map((option: Timezone) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
