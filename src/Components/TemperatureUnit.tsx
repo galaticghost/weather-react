@@ -1,12 +1,31 @@
-interface Props {
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
+import '../styles/temperatureUnit.css';
 
-export default function TemperatureUnitSelection({ onClick }: Props) {
+interface Props {
+    onClick: React.MouseEventHandler<HTMLButtonElement>,
+    temperatureUnit: string
+};
+
+export default function TemperatureUnitSelection({ onClick, temperatureUnit }: Props) {
+
     return (
-        <div>
-            <button className="temperature-unit" value="celsius" onClick={onClick}>Celsius</button>
-            <button className="temperature-unit" value="fahrenheit" onClick={onClick}>Fahrenheit</button>
-        </div>
-    )
+        <span className='temperature-unit'>
+            <button
+                className={`temperature-unit ${temperatureUnit === "celsius" ? "temperature-unit-disable" : ""}`}
+                value="celsius"
+                onClick={onClick}
+                disabled={temperatureUnit === "celsius"}
+            >
+                ºC
+            </button>
+            <span> | </span>
+            <button
+                className={`temperature-unit ${temperatureUnit === "fahrenheit" ? "temperature-unit-disable" : ""}`}
+                value="fahrenheit"
+                onClick={onClick}
+                disabled={temperatureUnit === "fahrenheit"}
+            >
+                ºF
+            </button>
+        </span>
+    );
 }

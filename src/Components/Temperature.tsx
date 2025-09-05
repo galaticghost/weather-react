@@ -10,9 +10,8 @@ interface Props {
 export default function Temperature({ currentTemperature, apparentTemperature, temperatureUnit, onTemperatureUnitChange }: Props) {
     return (
         <section>
-            <p className="temperature">{currentTemperature}°{temperatureUnit === "celsius" ? "C" : "F"}</p>
+            <p className="current-temperature temperature">{currentTemperature} <TemperatureUnitSelection onClick={onTemperatureUnitChange} temperatureUnit={temperatureUnit} /></p>
             <p className="temperature">Sensação Térmica: {apparentTemperature}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
-            <TemperatureUnitSelection onClick={onTemperatureUnitChange} />
         </section>
     );
 }

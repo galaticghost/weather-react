@@ -1,0 +1,9 @@
+.temperature-unit-disable {
+    cursor:text;
+    color: crimson;
+}
+
+.temperature-unit {
+    font-size: 0.75em;
+    vertical-align: top;
+}
