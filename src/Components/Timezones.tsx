@@ -72,11 +72,12 @@ const options: Array<ContinentTimezones> = [
 
 export default function Timezones({ timezone, onChange }: Props) {
     return (
-        <div>
-            <label htmlFor="timezones">Fuso horário:</label>
+        <div className="timezones-div">
+            <label htmlFor="timezones" className="timezones-label">Fuso horário</label>
             <select
                 name="timezones"
                 id="timezones"
+                className="timezones-selection"
                 value={timezone}
                 onChange={onChange}
             >

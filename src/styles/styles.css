@@ -30,3 +30,17 @@ html, body {
 .current-temperature{
     font-size: 2em;
 }
+
+.timezones-div {
+    display: flex;
+    flex-direction: column;
+    justify-content:left;
+    align-items: center;
+}
+
+.timezones-selection {
+
+}
+
+.timezones-label {
+}
