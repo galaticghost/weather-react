@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import WeatherButton from './Components/WeatherButton.tsx';
 import Timezones from './Components/Timezones.tsx';
-import Temperature from './Components/Temperature.tsx';
 import './styles/styles.css';
 import './styles/reset.css';
 import MainWeather from './Components/MainWeather.tsx';
@@ -22,10 +21,9 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		if (latitude && longitude && timezone) {
+		if (latitude && longitude) {
 			getWeather();
 		}
-
 	}, [timezone, latitude, longitude, temperatureUnit]);
 
 	async function getWeather() {
@@ -53,9 +51,11 @@ function App() {
 
 			const data = await response.json();
 			console.log(data);
-			let cloudCover: number = data.current.cloud_cover;
+
+			const cloudCover: number = data.current.cloud_cover;
 			setTemperature(data.hourly.temperature_2m[d.getHours()]);
 			setApparentTemperature(data.hourly.apparent_temperature[d.getHours()]);
+
 			if (cloudCover <= 10) {
 				setCloudCover("Céu limpo");
 			} else if (cloudCover > 10 && cloudCover <= 30) {
@@ -86,22 +86,21 @@ function App() {
 		setTemperatureUnit(event.currentTarget.value);
 	}
 
-	function getCoords() {
-		fetch("http://ip-api.com/json/")
-			.then(response => {
-				if (!response.ok) {
-					throw new Error(`Response status: ${response.status}`);
-				}
-				return response.json();
-			})
-			.then(coords => {
-				console.log(coords);
-				setLatitude(coords.lat.toString());
-				setLongitude(coords.lon.toString());
-			})
-			.catch(error => {
+	async function getCoords() {
+		try {
+			const response = await fetch("http://ip-api.com/json/")
+			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
+
+			const { lat, lon } = await response.json();
+			console.log(lat, lon);
+			setLatitude(lat);
+			setLongitude(lon);
+
+		} catch (error: unknown) {
+			if (error instanceof Error) {
 				console.log(error.message);
-			});
+			}
+		}
 	}
 
 	return (
