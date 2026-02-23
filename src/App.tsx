@@ -81,6 +81,14 @@ function App() {
 		}
 	}
 
+	const handleLocationChange = (city: string, country: string,
+		latitude: string, longitude: string) => {
+		setCity(city);
+		setCountry(country);
+		setLatitude(latitude);
+		setLongitude(longitude);
+	}
+
 	const handleTimezoneChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setTimezone(event.target.value);
 	}
@@ -111,7 +119,7 @@ function App() {
 		// TODO CHANGE TITLE
 		<>
 			<div className="card">
-				<SearchLocation />
+				<SearchLocation setLocation={handleLocationChange} />
 				<MainWeather
 					temperatureUnit={temperatureUnit}
 					currentTemperature={temperature}
