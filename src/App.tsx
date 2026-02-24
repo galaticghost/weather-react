@@ -3,22 +3,29 @@ import { useState, useEffect, useRef } from 'react';
 import Timezones from './Components/Timezones.tsx';
 import MainWeather from './Components/MainWeather.tsx';
 import SearchLocation from './Components/SearchLocation.tsx';
+import TemperatureUnit from './Components/TemperatureUnit.tsx';
 
 import './styles/styles.css';
 import './styles/reset.css';
+import locationIcon from './assets/location.svg';
 
 import type { Location } from "./types/types";
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
+	const [cloudCover, setCloudCover] = useState("");
+	const [apparentTemperature, setApparentTemperature] = useState(0);
+	const [temperature, setTemperature] = useState(0);
+	const [precipitation, setPrecipitation] = useState(0)
+	const [humidity, setHumidity] = useState(0);
+	const [wind, setWind] = useState(0);
+
+
 	const [latitude, setLatitude] = useState<number | null>(null);
 	const [longitude, setLongitude] = useState<number | null>(null);
 	const [country, setCountry] = useState("");
 	const [city, setCity] = useState("");
-	const [cloudCover, setCloudCover] = useState("");
-	const [apparentTemperature, setApparentTemperature] = useState(0);
-	const [temperature, setTemperature] = useState(0);
 
 	const abortRef = useRef<AbortController | null>(null);
 
@@ -48,7 +55,8 @@ function App() {
 			`&timezone=${timezone}` +
 			`&forecast_days=1` +
 			`&temperature_unit=${temperatureUnit}` +
-			`&current=temperature_2m,apparent_temperature,cloud_cover`;
+			`&current=temperature_2m,apparent_temperature,` +
+			`cloud_cover,rain,precipitation_probability,wind_speed_10m`;
 		const d = new Date();
 
 		try {
@@ -61,6 +69,9 @@ function App() {
 			const cloudCover: number = data.current.cloud_cover;
 			setTemperature(data.hourly.temperature_2m[d.getHours()]);
 			setApparentTemperature(data.hourly.apparent_temperature[d.getHours()]);
+			setWind(data.current.wind_speed_10m);
+			setPrecipitation(data.current.precipitation_probability);
+			setHumidity(data.current.rain);
 
 			if (cloudCover <= 10) {
 				setCloudCover("Céu limpo");
@@ -135,10 +146,12 @@ function App() {
 			<header className="header-title">
 				<h1>Weather React</h1>
 			</header>
-			<section className="location-selector">
-				<SearchLocation
-					setLocation={handleLocationChange} />
-				<button className="" onClick={setLocationByIp}>Use a minha localização</button>
+			<section className="location-selector card-surface">
+				<SearchLocation setLocation={handleLocationChange} />
+				<button className="ip-location" onClick={setLocationByIp}>
+					<img alt='Ícone de localização' src={locationIcon} className='icon' />
+					Use a minha localização
+				</button>
 			</section>
 
 			<MainWeather
@@ -146,22 +159,19 @@ function App() {
 				currentTemperature={temperature}
 				apparentTemperature={apparentTemperature}
 				cloudCover={cloudCover}
-				onTemperatureUnitChange={handleTemperatureUnitChange}
+				city={city}
+				country={country}
+				wind={wind}
+				humidity={humidity}
+				precipitation={precipitation}
 			/>
-
+			<section></section>
+			<section className='configuration card-surface'>
+				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
+				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
+			</section>
 		</>
 	)
 }
 
-/*			<div className="card">
-				<MainWeather
-					temperatureUnit={temperatureUnit}
-					currentTemperature={temperature}
-					apparentTemperature={apparentTemperature}
-					cloudCover={cloudCover}
-					onTemperatureUnitChange={handleTemperatureUnitChange}
-				/>
-				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
-			</div>
-*/
 export default App

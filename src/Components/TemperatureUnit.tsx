@@ -5,7 +5,7 @@ interface Props {
     temperatureUnit: string
 };
 
-export default function TemperatureUnitSelection({ onClick, temperatureUnit }: Props) {
+export default function TemperatureUnit({ onClick, temperatureUnit }: Props) {
 
     return (
         <span className='temperature-unit'>

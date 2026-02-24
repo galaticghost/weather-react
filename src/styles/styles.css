@@ -2,14 +2,23 @@
 * {
     font-family: "IBM Plex Sans", sans-serif;
 }
-body {
-    background-color: #5F7470;
-}
 
 .root {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 1rem;
+    height: 100vh;
+    background: linear-gradient(
+        180deg,
+        #0F172A,
+        #1E293B
+    );
+    color: #F1F5F9;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
 }
 
 .header-title {
@@ -18,26 +27,45 @@ body {
     padding: 1rem 0;
     font-size: 1.5rem;
     color: white;
+    align-self: center;
+}
+
+.card-surface {
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
 .location-selector {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 0.25rem;
     padding: 1rem 0;
-    border: red 3px solid;
-    border-radius: 0.5rem;
-    background-color: beige;
-    width: 90%;
+    margin: 0 0.5rem;
     position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 .search-bar {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    margin: 0 0.5rem;
     position: relative;
+}
+
+.search-bar input {
+    background: #0B1220;
+    border: 1px solid #475569;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: #F1F5F9;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: #38BDF8;
+    box-shadow: 0 0 0 2px rgba(56,189,248,0.25);
 }
 
 .results-container {
@@ -46,38 +74,60 @@ body {
     background-color: beige;
     border-radius: 0.25rem;
     position: absolute;
-    z-index: 50;
+    z-index: 100;
     top: calc(100% + 4px);
     width: 100%;
     left: 0;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    overflow: hidden;
 }
 
 .result {
     background: transparent;
     padding: 0.75rem 1rem;
     cursor: pointer;
+    color: black;
 }
 
 .result:hover {
-    background-color: #889696;
+    background-color: #2F4550;
+    color: white;
+    transition: background 0.15s ease;
 }
 
+.ip-location {
+    border: 1px solid #475569;
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 0.5rem;
+}
 
-.card {
-    background-color: rgb(255 255 255 / 70%);
-    backdrop-filter: blur(10px);
-    border-radius: 5%;
+.ip-location:hover {
+    background-color: #2F4550;
+    color: white;
+}
+
+.main-weather {
+    color: #F1F5F9;
+    padding: 1rem;
+    margin: 0 0.5rem;
+    /*background-image: url("../assets/fewclouds.jpg");*/
+    text-shadow: 0 0 5px #17243280;
+}
+
+.division {
+    display: flex;
+    justify-content: space-between;
+}
+
+.second-weather {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    padding: 10%;
-    width: 50%;
-    height: 80%;
 }
 
-
+.configuration {
+    margin: 0 0.5rem;
+}
 
 .temperature {
     font-family: "IBM Plex Sans", sans-serif;
@@ -92,11 +142,4 @@ body {
     flex-direction: column;
     justify-content:left;
     align-items: center;
-}
-
-.timezones-selection {
-
-}
-
-.timezones-label {
 }

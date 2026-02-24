@@ -89,8 +89,6 @@ export default function SearchLocation({ setLocation }: Props) {
                     }
                 </div>
             </section>
-
         </>
-
     )
 }
