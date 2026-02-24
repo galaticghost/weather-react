@@ -1,15 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
-
-html, body {
-    margin: 0;
-    height: 100%;
-    background-image: url("https://i.pinimg.com/originals/20/b2/cc/20b2cc0deeb11fc86622a3991eb4f17c.gif");
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+* {
+    font-family: "IBM Plex Sans", sans-serif;
+}
+body {
+    background-color: #5F7470;
 }
 
 .root {
     display: flex;
-    height: 100%;
+    flex-direction: column;
+    align-items: center;
 }
+
+.header-title {
+    display: flex;
+    margin: 0 1rem;
+    padding: 1rem 0;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.location-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 1rem 0;
+    border: red 3px solid;
+    border-radius: 0.5rem;
+    background-color: beige;
+    width: 90%;
+    position: relative;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    position: relative;
+}
+
+.results-container {
+    display: flex;
+    flex-direction: column;
+    background-color: beige;
+    border-radius: 0.25rem;
+    position: absolute;
+    z-index: 50;
+    top: calc(100% + 4px);
+    width: 100%;
+    left: 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.result {
+    background: transparent;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+}
+
+.result:hover {
+    background-color: #889696;
+}
+
 
 .card {
     background-color: rgb(255 255 255 / 70%);
@@ -22,6 +76,8 @@ html, body {
     width: 50%;
     height: 80%;
 }
+
+
 
 .temperature {
     font-family: "IBM Plex Sans", sans-serif;

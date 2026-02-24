@@ -1,21 +1,27 @@
 import { useEffect, useRef, useState } from "react"
+import { useClickOutside } from "../hooks/useClickOutside";
+import type { Location } from "../types/types";
 
 interface Props {
     setLocation: (
-        city: string,
-        country: string,
-        latitude: string,
-        longitude: string
+        location: Location
     ) => void;
-
 }
 
 export default function SearchLocation({ setLocation }: Props) {
-    const [suggestions, setSuggestions] = useState<Array<string>>([]);
+    const [suggestions, setSuggestions] = useState<Location[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [query, setQuery] = useState("");
     const [debouncedQuery, setDebouncedQuery] = useState("");
     const abortRef = useRef<AbortController | null>(null);
+    const outsideRef = useRef<HTMLDivElement | null>(null);
+
+    const closeSuggestions = () => {
+        setSuggestions([]);
+        setShowSuggestions(false);
+    }
+
+    useClickOutside(outsideRef, closeSuggestions, showSuggestions);
 
     async function getLocation(query: string) {
         if (abortRef.current) {
@@ -31,10 +37,17 @@ export default function SearchLocation({ setLocation }: Props) {
             const response = await fetch(url, { signal });
             if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
             const data = await response.json();
-            console.log(data);
-            setSuggestions(data);
+            const dataParsed: Location[] = data.features.map((f: any) => ({
+                city: f.properties.name,
+                country: f.properties.country,
+                latitude: f.geometry.coordinates[1],
+                longitude: f.geometry.coordinates[0],
+            }));
+
+            setSuggestions(dataParsed);
             setShowSuggestions(true);
-            console.log("dols");
+
+            console.log(dataParsed);
         } catch (error: unknown) {
             if (signal.reason) {
                 console.error(signal.reason);
@@ -48,10 +61,9 @@ export default function SearchLocation({ setLocation }: Props) {
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedQuery(query);
-            console.log("time")
         }, 300);
         return () => clearTimeout(timer);
-    }, [query])
+    }, [query]);
 
     useEffect(() => {
         if (debouncedQuery.length < 2 || !debouncedQuery) {
@@ -59,16 +71,26 @@ export default function SearchLocation({ setLocation }: Props) {
             return;
         }
         getLocation(debouncedQuery);
-    }, [debouncedQuery])
-
+    }, [debouncedQuery]);
+    // TODO onclick do botão suggestions
     return (
-        <section>
-            <input id="1" type="text" placeholder="Digite o nome da cidade..." onChange={(e) => setQuery(e.target.value)} />
-            {showSuggestions && suggestions.length > 0 && (suggestions.map((suggestion, index) => (
-                <button key={index}>{suggestion.city}</button>
-            ))
-            )
-            }
-        </section>
+        <>
+            <section className="search-bar">
+                <input id="1" type="text" autoComplete="off"
+                    placeholder="Digite o nome da cidade..."
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+                <div className="results-container" ref={outsideRef}>
+                    {showSuggestions && suggestions.length > 0 && (suggestions.map((suggestion, index) => (
+                        <button key={index} className="result" onClick={() => { setLocation(suggestion); closeSuggestions() }} >
+                            {suggestion.city},{suggestion.country}
+                        </button>
+                    )))
+                    }
+                </div>
+            </section>
+
+        </>
+
     )
 }

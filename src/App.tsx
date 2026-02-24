@@ -1,16 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
-import WeatherButton from './Components/WeatherButton.tsx';
+
 import Timezones from './Components/Timezones.tsx';
-import './styles/styles.css';
-import './styles/reset.css';
 import MainWeather from './Components/MainWeather.tsx';
 import SearchLocation from './Components/SearchLocation.tsx';
+
+import './styles/styles.css';
+import './styles/reset.css';
+
+import type { Location } from "./types/types";
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
-	const [latitude, setLatitude] = useState("");
-	const [longitude, setLongitude] = useState("");
+	const [latitude, setLatitude] = useState<number | null>(null);
+	const [longitude, setLongitude] = useState<number | null>(null);
 	const [country, setCountry] = useState("");
 	const [city, setCity] = useState("");
 	const [cloudCover, setCloudCover] = useState("");
@@ -20,7 +23,7 @@ function App() {
 	const abortRef = useRef<AbortController | null>(null);
 
 	useEffect(() => {
-		getCoordsFromIp();
+		setLocationByIp();
 	}, []);
 
 	useEffect(() => {
@@ -81,12 +84,11 @@ function App() {
 		}
 	}
 
-	const handleLocationChange = (city: string, country: string,
-		latitude: string, longitude: string) => {
-		setCity(city);
-		setCountry(country);
-		setLatitude(latitude);
-		setLongitude(longitude);
+	const handleLocationChange = (location: Location) => {
+		setCity(location.city);
+		setCountry(location.country);
+		setLatitude(location.latitude);
+		setLongitude(location.longitude);
 	}
 
 	const handleTimezoneChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -97,29 +99,61 @@ function App() {
 		setTemperatureUnit(event.currentTarget.value);
 	}
 
-	async function getCoordsFromIp() {
+	async function setLocationByIp(): Promise<void> {
+		const location = await getLocationFromIp();
+		if (location) {
+			handleLocationChange(location);
+		}
+	}
+
+	async function getLocationFromIp(): Promise<Location | null> {
 		try {
 			const response = await fetch("http://ip-api.com/json/")
 			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
-			const { lat, lon, city, country } = await response.json();
-			console.log(lat, lon, city, country); // deletar dps
-			setLatitude(lat);
-			setLongitude(lon);
-			setCity(city);
-			setCountry(country);
+			const data = await response.json();
+
+			const location: Location = {
+				city: data.city,
+				country: data.country,
+				latitude: data.lat,
+				longitude: data.lon
+
+			};
+			return location;
 
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.log(error.message);
 			}
+			return null;
 		}
 	}
 
 	return (
 		// TODO CHANGE TITLE
 		<>
-			<div className="card">
-				<SearchLocation setLocation={handleLocationChange} />
+			<header className="header-title">
+				<h1>Weather React</h1>
+			</header>
+			<section className="location-selector">
+				<SearchLocation
+					setLocation={handleLocationChange} />
+				<button className="" onClick={setLocationByIp}>Use a minha localização</button>
+			</section>
+
+			<MainWeather
+				temperatureUnit={temperatureUnit}
+				currentTemperature={temperature}
+				apparentTemperature={apparentTemperature}
+				cloudCover={cloudCover}
+				onTemperatureUnitChange={handleTemperatureUnitChange}
+			/>
+
+		</>
+	)
+}
+
+/*			<div className="card">
 				<MainWeather
 					temperatureUnit={temperatureUnit}
 					currentTemperature={temperature}
@@ -127,11 +161,7 @@ function App() {
 					cloudCover={cloudCover}
 					onTemperatureUnitChange={handleTemperatureUnitChange}
 				/>
-				<WeatherButton getWeather={getWeather} />
 				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
 			</div>
-		</>
-	)
-}
-
+*/
 export default App
