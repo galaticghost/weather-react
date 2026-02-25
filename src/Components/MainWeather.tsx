@@ -1,6 +1,7 @@
 import windIcon from "../assets/wind.svg";
 import dropletIcon from "../assets/droplet.svg";
 import rainIcon from "../assets/rain.svg";
+import locationIcon from "../assets/location.svg";
 
 interface Props {
     currentTemperature: number;
@@ -18,7 +19,10 @@ export default function MainWeather({ currentTemperature, apparentTemperature, t
     cloudCover, city, country, wind, humidity, precipitation }: Props) {
     return (
         <section className="main-weather card-surface">
-            <p className="location">{city},{country}</p>
+            <h2 className="location">
+                <img alt='Ícone de localização' src={locationIcon} className='icon' />
+                {city},{country}
+            </h2>
             <div className="division">
                 <div className="temperature">
                     <p className="current-temperature temperature">{currentTemperature}º{temperatureUnit === "celsius" ? "C" : "F"}</p>

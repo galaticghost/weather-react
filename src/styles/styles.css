@@ -151,9 +151,24 @@
     text-shadow: 0 0 5px var(--shadow-strong);
 }
 
+.location {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.location > img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+}
+
 .division {
     display: flex;
     justify-content: space-between;
+}
+
+.current-temperature{
+    font-size: 2.25em;
 }
 
 .second-weather {
@@ -165,9 +180,7 @@
     margin: 0 0.5rem;
 }
 
-.current-temperature{
-    font-size: 2em;
-}
+
 
 .timezones-div {
     display: flex;
