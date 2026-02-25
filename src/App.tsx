@@ -14,7 +14,7 @@ import type { Location, Weather } from "./types/types";
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
-
+	const [toggleTheme, setToggleTheme] = useState(false);
 	const [weather, setWeather] = useState<Weather | null>(null)
 	const [isLoading, setIsLoading] = useState(true);
 	const [location, setLocation] = useState<Location>({
@@ -36,11 +36,16 @@ function App() {
 		}
 	}, [timezone, location.latitude, location.longitude, temperatureUnit]);
 
+	if (toggleTheme) { // Vejo depois melhor
+		document.documentElement.dataset.theme = "light";
+	} else {
+		document.documentElement.dataset.theme = "dark";
+	}
+
 	async function getWeather() {
 		if (abortRef.current) {
 			abortRef.current.abort("The user has made another request");
 		}
-		document.documentElement.dataset.theme = "light";
 		const controller = new AbortController();
 		abortRef.current = controller;
 		const signal = abortRef.current.signal;
@@ -152,6 +157,9 @@ function App() {
 					<section className='configuration card-surface'>
 						<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
 						<Timezones timezone={timezone} onChange={handleTimezoneChange} />
+						<button onClick={() => setToggleTheme(!toggleTheme)}>
+							Tema {toggleTheme ? "escuro" : "claro"}
+						</button>
 					</section>
 				</>
 				:
