@@ -84,22 +84,20 @@ export default function SearchLocation({ setLocation }: Props) {
     }, [debouncedQuery]);
     // TODO onclick do botão suggestions
     return (
-        <>
-            <section className="search-bar">
-                <input id="1" type="text" autoComplete="off"
-                    placeholder="Digite o nome da cidade..."
-                    onChange={(e) => setQuery(e.target.value)}
-                />
-                <div className="results-container" ref={outsideRef}>
-                    {showSuggestions && suggestions.length > 0 && (suggestions.map((suggestion, index) => (
-                        <button key={index} className="result" onClick={() => { setLocation(suggestion); closeSuggestions() }} >
-                            {suggestion.city},{suggestion.country}
-                        </button>
-                    )))
-                    }
-                    {showQueryError && <div className="result">xina</div>}
-                </div>
-            </section >
-        </>
+        <section className="search-bar">
+            <input id="1" type="text" autoComplete="off"
+                placeholder="Digite o nome da cidade..."
+                onChange={(e) => setQuery(e.target.value)}
+            />
+            <div className="results-container" ref={outsideRef}>
+                {showSuggestions && suggestions.length > 0 && (suggestions.map((suggestion, index) => (
+                    <button key={index} className="result" onClick={() => { setLocation(suggestion); closeSuggestions() }} >
+                        {suggestion.city},{suggestion.country}
+                    </button>
+                )))
+                }
+                {showQueryError && <div className="result">Não foi encontrada nenhuma localização com esse nome.</div>}
+            </div>
+        </section>
     )
 }

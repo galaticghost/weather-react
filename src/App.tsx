@@ -9,22 +9,20 @@ import './styles/styles.css';
 import './styles/reset.css';
 import locationIcon from './assets/location.svg';
 
-import type { Location } from "./types/types";
+import type { Location, Weather } from "./types/types";
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
-	const [cloudCover, setCloudCover] = useState("");
-	const [apparentTemperature, setApparentTemperature] = useState(0);
-	const [temperature, setTemperature] = useState(0);
-	const [precipitation, setPrecipitation] = useState(0)
-	const [humidity, setHumidity] = useState(0);
-	const [wind, setWind] = useState(0);
 
-	const [latitude, setLatitude] = useState<number | null>(null);
-	const [longitude, setLongitude] = useState<number | null>(null);
-	const [country, setCountry] = useState("");
-	const [city, setCity] = useState("");
+	const [weather, setWeather] = useState<Weather | null>(null)
+	const [isLoading, setIsLoading] = useState(true);
+	const [location, setLocation] = useState<Location>({
+		city: "",
+		country: "",
+		latitude: null,
+		longitude: null
+	});
 
 	const abortRef = useRef<AbortController | null>(null);
 
@@ -33,23 +31,23 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		if (latitude && longitude) {
+		if (location.latitude !== null && location.longitude !== null) {
 			getWeather();
 		}
-	}, [timezone, latitude, longitude, temperatureUnit]);
+	}, [timezone, location.latitude, location.longitude, temperatureUnit]);
 
 	async function getWeather() {
 		if (abortRef.current) {
 			abortRef.current.abort("The user has made another request");
 		}
-
+		document.documentElement.dataset.theme = "light";
 		const controller = new AbortController();
 		abortRef.current = controller;
 		const signal = abortRef.current.signal;
 
 		const url = `https://api.open-meteo.com/v1/forecast?` +
-			`latitude=${latitude}` +
-			`&longitude=${longitude}` +
+			`latitude=${location.latitude}` +
+			`&longitude=${location.longitude}` +
 			`&hourly=temperature_2m,apparent_temperature` +
 			`&timezone=${timezone}` +
 			`&forecast_days=1` +
@@ -62,26 +60,15 @@ function App() {
 			const response = await fetch(url, { signal });
 			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
 			const data = await response.json();
-			console.log(data); // Deletar dps
 
-			const cloudCover: number = data.current.cloud_cover;
-			setTemperature(data.hourly.temperature_2m[d.getHours()]);
-			setApparentTemperature(data.hourly.apparent_temperature[d.getHours()]);
-			setWind(data.current.wind_speed_10m);
-			setPrecipitation(data.current.precipitation_probability);
-			setHumidity(data.current.rain);
-
-			if (cloudCover <= 10) {
-				setCloudCover("Céu limpo");
-			} else if (cloudCover > 10 && cloudCover <= 30) {
-				setCloudCover("Pouco nublado");
-			} else if (cloudCover > 30 && cloudCover <= 70) {
-				setCloudCover("Parcialmente nublado");
-			} else if (cloudCover > 70 && cloudCover <= 90) {
-				setCloudCover("Predominantemente nublado");
-			} else {
-				setCloudCover("Completamente nublado");
-			}
+			setWeather({
+				temperature: data.hourly.temperature_2m[d.getHours()],
+				apparentTemperature: data.hourly.apparent_temperature[d.getHours()],
+				wind: data.current.wind_speed_10m,
+				precipitation: data.current.precipitation_probability,
+				humidity: data.current.rain,
+				cloudCover: data.current.cloud_cover
+			});
 
 		} catch (error: unknown) {
 			if (signal.reason) {
@@ -90,14 +77,14 @@ function App() {
 			if (error instanceof Error) {
 				console.error(error.message);
 			}
+		} finally {
+			setIsLoading(false);
 		}
 	}
 
 	const handleLocationChange = (location: Location) => {
-		setCity(location.city);
-		setCountry(location.country);
-		setLatitude(location.latitude);
-		setLongitude(location.longitude);
+		setIsLoading(true);
+		setLocation(location);
 	}
 
 	const handleTimezoneChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -109,6 +96,7 @@ function App() {
 	}
 
 	async function setLocationByIp(): Promise<void> {
+		setIsLoading(true);
 		const location = await getLocationFromIp();
 		if (location) {
 			handleLocationChange(location);
@@ -126,8 +114,8 @@ function App() {
 			const location: Location = {
 				city: data.city,
 				country: data.country,
-				latitude: lat,
-				longitude: log
+				latitude: Number(lat),
+				longitude: Number(log)
 			};
 			return location;
 
@@ -152,25 +140,30 @@ function App() {
 					Use a minha localização
 				</button>
 			</section>
-
-			<MainWeather
-				temperatureUnit={temperatureUnit}
-				currentTemperature={temperature}
-				apparentTemperature={apparentTemperature}
-				cloudCover={cloudCover}
-				city={city}
-				country={country}
-				wind={wind}
-				humidity={humidity}
-				precipitation={precipitation}
-			/>
-			<section></section>
-			<section className='configuration card-surface'>
-				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
-				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
-			</section>
+			{!isLoading && weather ?
+				<>
+					<MainWeather
+						temperatureUnit={temperatureUnit}
+						weather={weather}
+						city={location.city}
+						country={location.country}
+					/>
+					<section className='forecast-days card-surface'>Teste</section>
+					<section className='configuration card-surface'>
+						<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
+						<Timezones timezone={timezone} onChange={handleTimezoneChange} />
+					</section>
+				</>
+				:
+				<div className='loader-div'>
+					<div className='loader'></div>
+					<p>Carregando...</p>
+				</div>
+			}
 		</>
 	)
 }
 
 export default App
+
+/**/
