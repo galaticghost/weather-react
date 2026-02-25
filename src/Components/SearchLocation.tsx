@@ -11,12 +11,15 @@ interface Props {
 export default function SearchLocation({ setLocation }: Props) {
     const [suggestions, setSuggestions] = useState<Location[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [showQueryError, setShowQueryError] = useState(false);
     const [query, setQuery] = useState("");
     const [debouncedQuery, setDebouncedQuery] = useState("");
+
     const abortRef = useRef<AbortController | null>(null);
     const outsideRef = useRef<HTMLDivElement | null>(null);
 
     const closeSuggestions = () => {
+        setShowQueryError(false);
         setSuggestions([]);
         setShowSuggestions(false);
     }
@@ -37,17 +40,22 @@ export default function SearchLocation({ setLocation }: Props) {
             const response = await fetch(url, { signal });
             if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
             const data = await response.json();
-            const dataParsed: Location[] = data.features.map((f: any) => ({
-                city: f.properties.name,
-                country: f.properties.country,
-                latitude: f.geometry.coordinates[1],
-                longitude: f.geometry.coordinates[0],
-            }));
-
-            setSuggestions(dataParsed);
-            setShowSuggestions(true);
-
-            console.log(dataParsed);
+            if (data.features.length > 0) {
+                const dataParsed: Location[] = data.features.map((f: any) => ({
+                    city: f.properties.name,
+                    country: f.properties.country,
+                    latitude: f.geometry.coordinates[1],
+                    longitude: f.geometry.coordinates[0],
+                }));
+                console.log(data)
+                setShowQueryError(false);
+                setSuggestions(dataParsed);
+                setShowSuggestions(true);
+            } else {
+                setShowSuggestions(false);
+                setSuggestions([]);
+                setShowQueryError(true);
+            }
         } catch (error: unknown) {
             if (signal.reason) {
                 console.error(signal.reason);
@@ -59,6 +67,8 @@ export default function SearchLocation({ setLocation }: Props) {
     }
 
     useEffect(() => {
+        setShowQueryError(false);
+        setShowSuggestions(false);
         const timer = setTimeout(() => {
             setDebouncedQuery(query);
         }, 300);
@@ -87,8 +97,9 @@ export default function SearchLocation({ setLocation }: Props) {
                         </button>
                     )))
                     }
+                    {showQueryError && <div className="result">xina</div>}
                 </div>
-            </section>
+            </section >
         </>
     )
 }

@@ -3,6 +3,40 @@
     font-family: "IBM Plex Sans", sans-serif;
 }
 
+:root {
+    --background-one: #0F172A;
+    --background-two: #1E293B;
+    --text-primary: #F1F5F9;
+    --text-secondary: #CBD5E1;
+    --surface-glass: rgba(30, 41, 59, 0.6);
+    --surface-border: rgba(255,255,255,0.08);
+    --input-bg: #0B1220;
+    --input-border: #475569;
+    --accent: #38BDF8;
+    --hover-surface: #2F4550;
+    --shadow-strong: rgba(0,0,0,0.25);
+    --shadow-soft: rgba(0,0,0,0.2);
+    --icon-filter: invert(100%);
+    --surface-elevated:#020617;
+}
+
+[data-theme="light"] {
+    --background-one: #F1F5F9;
+    --background-two: #E2E8F0;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --surface-glass: rgba(255,255,255,0.7);
+    --surface-border: rgba(15,23,42,0.08);
+    --input-bg: #FFFFFF;
+    --surface-elevated: #FFFFFF;
+    --input-border: #CBD5E1;
+    --accent: #0284C7;
+    --hover-surface: #E2E8F0;
+    --shadow-strong: rgba(15,23,42,0.12);
+    --shadow-soft: rgba(15,23,42,0.08);
+    --icon-filter: invert(0%);
+}
+
 .root {
     display: flex;
     flex-direction: column;
@@ -10,15 +44,16 @@
     height: 100vh;
     background: linear-gradient(
         180deg,
-        #0F172A,
-        #1E293B
+        var(--background-one),
+        var(--background-two)
     );
-    color: #F1F5F9;
+    color: var(--text-primary);
 }
 
 .icon {
-    width: 1rem;
-    height: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    filter: var(--icon-filter);
 }
 
 .header-title {
@@ -26,15 +61,15 @@
     margin: 0 1rem;
     padding: 1rem 0;
     font-size: 1.5rem;
-    color: white;
+    color: var(--text-primary);
     align-self: center;
 }
 
 .card-surface {
-    background: rgba(30, 41, 59, 0.6);
+    background: var(--surface-glass);
     border-radius: 0.5rem;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    border: 1px solid var(--surface-border);
+    box-shadow: 0 10px 25px var(--shadow-strong);
 }
 
 .location-selector {
@@ -44,7 +79,7 @@
     padding: 1rem 0;
     margin: 0 0.5rem;
     position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px var(--shadow-soft);
 }
 
 .search-bar {
@@ -55,47 +90,47 @@
 }
 
 .search-bar input {
-    background: #0B1220;
-    border: 1px solid #475569;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 0.5rem;
     padding: 0.75rem 1rem;
-    color: #F1F5F9;
+    color: var(--text-primary);
 }
 
 .search-bar input:focus {
     outline: none;
-    border-color: #38BDF8;
-    box-shadow: 0 0 0 2px rgba(56,189,248,0.25);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--shadow-strong);
 }
 
 .results-container {
     display: flex;
     flex-direction: column;
-    background-color: beige;
+    background-color: var(--surface-elevated);
     border-radius: 0.25rem;
     position: absolute;
     z-index: 100;
     top: calc(100% + 4px);
     width: 100%;
     left: 0;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px var(--shadow-soft);
 }
 
 .result {
     background: transparent;
     padding: 0.75rem 1rem;
     cursor: pointer;
-    color: black;
+    color: var(--text-secondary);
 }
 
 .result:hover {
-    background-color: #2F4550;
-    color: white;
+    background-color: var(--hover-surface);
+    color: var(--text-primary);
     transition: background 0.15s ease;
 }
 
 .ip-location {
-    border: 1px solid #475569;
+    border: 1px solid var(--input-border);
     margin: 0 0.5rem;
     padding: 0.5rem;
     text-align: center;
@@ -103,16 +138,17 @@
 }
 
 .ip-location:hover {
-    background-color: #2F4550;
-    color: white;
+    background-color: var(--hover-surface);
+    color: var(--text-primary);
+    transition: background 0.15s ease;
 }
 
 .main-weather {
-    color: #F1F5F9;
+    color: var(--text-primary);
     padding: 1rem;
     margin: 0 0.5rem;
     /*background-image: url("../assets/fewclouds.jpg");*/
-    text-shadow: 0 0 5px #17243280;
+    text-shadow: 0 0 5px var(--shadow-strong);
 }
 
 .division {
@@ -129,10 +165,6 @@
     margin: 0 0.5rem;
 }
 
-.temperature {
-    font-family: "IBM Plex Sans", sans-serif;
-}
-
 .current-temperature{
     font-size: 2em;
 }
@@ -140,6 +172,12 @@
 .timezones-div {
     display: flex;
     flex-direction: column;
-    justify-content:left;
+
     align-items: center;
+}
+
+@media (max-width: 858px) {
+    * {
+        font-size: 14px;
+    }
 }

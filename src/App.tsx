@@ -21,7 +21,6 @@ function App() {
 	const [humidity, setHumidity] = useState(0);
 	const [wind, setWind] = useState(0);
 
-
 	const [latitude, setLatitude] = useState<number | null>(null);
 	const [longitude, setLongitude] = useState<number | null>(null);
 	const [country, setCountry] = useState("");
@@ -62,7 +61,6 @@ function App() {
 		try {
 			const response = await fetch(url, { signal });
 			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
-
 			const data = await response.json();
 			console.log(data); // Deletar dps
 
@@ -119,16 +117,17 @@ function App() {
 
 	async function getLocationFromIp(): Promise<Location | null> {
 		try {
-			const response = await fetch("http://ip-api.com/json/")
+			const response = await fetch("https://ipinfo.io/json")
 			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
 			const data = await response.json();
+
+			const [lat, log] = data.loc.split(",");
 
 			const location: Location = {
 				city: data.city,
 				country: data.country,
-				latitude: data.lat,
-				longitude: data.lon
-
+				latitude: lat,
+				longitude: log
 			};
 			return location;
 
@@ -141,7 +140,7 @@ function App() {
 	}
 
 	return (
-		// TODO CHANGE TITLE
+		// TODO CHANGE TITLE AND ICON
 		<>
 			<header className="header-title">
 				<h1>Weather React</h1>
