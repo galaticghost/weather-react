@@ -93,9 +93,6 @@ function App() {
 				city={location?.city}
 				country={location?.country}
 			/>
-			<ForecastDays
-				weather={weather}
-			/>
 			<section className='configuration card-surface'>
 				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
 				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
