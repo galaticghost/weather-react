@@ -11,7 +11,7 @@ import './styles/styles.css';
 import './styles/reset.css';
 import locationIcon from './assets/location.svg';
 
-import type { Location, Weather } from "./types/types";
+import type { Location, WeatherData } from "./types/types";
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -19,7 +19,7 @@ function App() {
 	const [toggleTheme, setToggleTheme] = useState(false);
 	const [location, setLocation] = useState<Location | null>(null);
 
-
+	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } = useWeather(location, temperatureUnit, timezone);
 	useEffect(() => {
 		setLocationByIp();
 	}, []);
@@ -28,8 +28,6 @@ function App() {
 		document.documentElement.dataset.theme =
 			toggleTheme ? "light" : "dark";
 	}, [toggleTheme]);
-
-	const weather: Weather | null = useWeather(location, temperatureUnit, timezone);
 
 	const handleLocationChange = (location: Location) => {
 		setLocation(location);
@@ -89,9 +87,14 @@ function App() {
 			</section>
 			<MainWeather
 				temperatureUnit={temperatureUnit}
-				weather={weather}
+				weather={weather?.current}
 				city={location?.city}
 				country={location?.country}
+				isLoading={isLoading}
+			/>
+			<ForecastDays
+				forecast={weather?.hourly}
+				isLoading={isLoading}
 			/>
 			<section className='configuration card-surface'>
 				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />

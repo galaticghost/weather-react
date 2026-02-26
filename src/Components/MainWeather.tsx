@@ -2,16 +2,17 @@ import windIcon from "../assets/wind.svg";
 import dropletIcon from "../assets/droplet.svg";
 import rainIcon from "../assets/rain.svg";
 import locationIcon from "../assets/location.svg";
-import type { Weather } from "../types/types";
+import type { CurrentWeather } from "../types/types";
 
 interface Props {
-    weather: Weather | null;
+    weather: CurrentWeather | null | undefined;
     temperatureUnit: string;
     city: string | undefined;
     country: string | undefined;
+    isLoading: boolean;
 }
 
-export default function MainWeather({ weather, temperatureUnit, city, country }: Props) {
+export default function MainWeather({ weather, temperatureUnit, city, country, isLoading }: Props) {
 
     function getCloudCoverDescription(cloudCover: number): string {
         if (cloudCover <= 10) return "Céu limpo";
@@ -23,7 +24,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country }:
 
     return (
         <section className="main-weather card-surface">
-            {weather ?
+            {weather && !isLoading ?
                 <>
                     <h2 className="location">
                         <img alt='Ícone de localização' src={locationIcon} className='icon' />

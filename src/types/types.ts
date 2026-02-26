@@ -4,20 +4,13 @@ export type Location = {
     latitude: number | null;
     longitude: number | null;
 };
-// DELETAR WEATHER DPS TODO
-export type Weather = {
-    temperature: number;
-    apparentTemperature: number;
-    precipitation: number;
-    humidity: number;
-    wind: number;
-    cloudCover: number;
-}
+
 //Refazer TODO
 export type HourlyForecast = {
     temperature: number;
-    hour: number;
+    hour: string;
     cloudCover: number;
+    rain: number;
 }
 
 export type CurrentWeather = {
@@ -30,6 +23,6 @@ export type CurrentWeather = {
 };
 
 export type WeatherData = {
-    current: CurrentWeather;
-    hourly: HourlyForecast;
+    current: CurrentWeather | null;
+    hourly: HourlyForecast[];
 }
