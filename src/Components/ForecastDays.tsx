@@ -1,23 +1,23 @@
 // Proxímas temperaturas do dia
 // Eu tenho que bolar isso ainda
 
+import type { Weather } from "../types/types";
+
 interface Props {
-    isLoading: boolean;
+    weather: Weather | null;
 }
-export default function ForecastDays({isLoading}: Props){
+export default function ForecastDays({ weather }: Props) {
     return (
-		<section className='forecast-days card-surface'>
-            {!isLoading ? 
-            <>
+        <section className='forecast-days card-surface'>
+            {weather ?
                 <ul>
-                
+                    japa
                 </ul>
-            </>
-            :
-            <div className='loader-div'>
-                <div className='loader'></div>
-                <p>Carregando...</p>
-            </div> 
-        }</section>
+                :
+                <div className='loader-div'>
+                    <div className='loader'></div>
+                    <p>Carregando...</p>
+                </div>
+            }</section>
     )
 }

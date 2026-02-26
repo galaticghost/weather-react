@@ -1,95 +1,37 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useWeather } from "./hooks/useWeather.tsx";
 
 import Timezones from './Components/Timezones.tsx';
 import MainWeather from './Components/MainWeather.tsx';
 import SearchLocation from './Components/SearchLocation.tsx';
 import TemperatureUnit from './Components/TemperatureUnit.tsx';
+import ForecastDays from './Components/ForecastDays.tsx';
 
 import './styles/styles.css';
 import './styles/reset.css';
 import locationIcon from './assets/location.svg';
 
 import type { Location, Weather } from "./types/types";
-import ForecastDays from './Components/ForecastDays.tsx';
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
 	const [toggleTheme, setToggleTheme] = useState(false);
-	const [weather, setWeather] = useState<Weather | null>(null)
-	const [isLoading, setIsLoading] = useState(true);
-	const [location, setLocation] = useState<Location>({
-		city: "",
-		country: "",
-		latitude: null,
-		longitude: null
-	});
+	const [location, setLocation] = useState<Location | null>(null);
 
-	const abortRef = useRef<AbortController | null>(null);
 
 	useEffect(() => {
 		setLocationByIp();
 	}, []);
 
 	useEffect(() => {
-		if (location.latitude !== null && location.longitude !== null) {
-			getWeather();
-		}
-	}, [timezone, location.latitude, location.longitude, temperatureUnit]);
+		document.documentElement.dataset.theme =
+			toggleTheme ? "light" : "dark";
+	}, [toggleTheme]);
 
-	if (toggleTheme) { // Vejo depois melhor
-		document.documentElement.dataset.theme = "light";
-	} else {
-		document.documentElement.dataset.theme = "dark";
-	}
-
-	async function getWeather() {
-		if (abortRef.current) {
-			abortRef.current.abort("The user has made another request");
-		}
-		const controller = new AbortController();
-		abortRef.current = controller;
-		const signal = abortRef.current.signal;
-
-		const url = `https://api.open-meteo.com/v1/forecast?` +
-			`latitude=${location.latitude}` +
-			`&longitude=${location.longitude}` +
-			`&hourly=temperature_2m,apparent_temperature` +
-			`&timezone=${timezone}` +
-			`&forecast_days=1` +
-			`&temperature_unit=${temperatureUnit}` +
-			`&current=temperature_2m,apparent_temperature,` +
-			`cloud_cover,rain,precipitation_probability,wind_speed_10m`;
-		const d = new Date();
-
-		try {
-			const response = await fetch(url, { signal });
-			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
-			const data = await response.json();
-
-			setWeather({
-				temperature: data.hourly.temperature_2m[d.getHours()],
-				apparentTemperature: data.hourly.apparent_temperature[d.getHours()],
-				wind: data.current.wind_speed_10m,
-				precipitation: data.current.precipitation_probability,
-				humidity: data.current.rain,
-				cloudCover: data.current.cloud_cover
-			});
-
-		} catch (error: unknown) {
-			if (signal.reason) {
-				console.error(signal.reason);
-			}
-			if (error instanceof Error) {
-				console.error(error.message);
-			}
-		} finally {
-			setIsLoading(false);
-		}
-	}
+	const weather: Weather | null = useWeather(location, temperatureUnit, timezone);
 
 	const handleLocationChange = (location: Location) => {
-		setIsLoading(false);
 		setLocation(location);
 	}
 
@@ -102,10 +44,9 @@ function App() {
 	}
 
 	async function setLocationByIp(): Promise<void> {
-		setIsLoading(true);
 		const location = await getLocationFromIp();
 		if (location) {
-			handleLocationChange(location);
+			setLocation(location);
 		}
 	}
 
@@ -134,7 +75,7 @@ function App() {
 	}
 
 	return (
-		// TODO CHANGE TITLE AND ICON
+		// TODO CHANGE TITLE
 		<>
 			<header className="header-title">
 				<h1>Weather React</h1>
@@ -149,12 +90,11 @@ function App() {
 			<MainWeather
 				temperatureUnit={temperatureUnit}
 				weather={weather}
-				city={location.city}
-				country={location.country}
-				isLoading={isLoading}
+				city={location?.city}
+				country={location?.country}
 			/>
-			<ForecastDays 
-				isLoading={isLoading}
+			<ForecastDays
+				weather={weather}
 			/>
 			<section className='configuration card-surface'>
 				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
@@ -168,5 +108,3 @@ function App() {
 }
 
 export default App
-
-/**/
