@@ -13,3 +13,9 @@ export type Weather = {
     wind: number;
     cloudCover: number;
 }
+// Mudar o nome disso daqui TODO
+export type WeatherHourly = {
+    temperature: number;
+    hour: number;
+    cloudCover: number;
+}

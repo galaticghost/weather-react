@@ -47,7 +47,6 @@ export default function SearchLocation({ setLocation }: Props) {
                     latitude: f.geometry.coordinates[1],
                     longitude: f.geometry.coordinates[0],
                 }));
-                console.log(data)
                 setShowQueryError(false);
                 setSuggestions(dataParsed);
                 setShowSuggestions(true);

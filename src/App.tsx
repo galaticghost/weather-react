@@ -10,6 +10,7 @@ import './styles/reset.css';
 import locationIcon from './assets/location.svg';
 
 import type { Location, Weather } from "./types/types";
+import ForecastDays from './Components/ForecastDays.tsx';
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -88,7 +89,7 @@ function App() {
 	}
 
 	const handleLocationChange = (location: Location) => {
-		setIsLoading(true);
+		setIsLoading(false);
 		setLocation(location);
 	}
 
@@ -145,29 +146,23 @@ function App() {
 					Use a minha localização
 				</button>
 			</section>
-			{!isLoading && weather ?
-				<>
-					<MainWeather
-						temperatureUnit={temperatureUnit}
-						weather={weather}
-						city={location.city}
-						country={location.country}
-					/>
-					<section className='forecast-days card-surface'>Teste</section>
-					<section className='configuration card-surface'>
-						<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
-						<Timezones timezone={timezone} onChange={handleTimezoneChange} />
-						<button onClick={() => setToggleTheme(!toggleTheme)}>
-							Tema {toggleTheme ? "escuro" : "claro"}
-						</button>
-					</section>
-				</>
-				:
-				<div className='loader-div'>
-					<div className='loader'></div>
-					<p>Carregando...</p>
-				</div>
-			}
+			<MainWeather
+				temperatureUnit={temperatureUnit}
+				weather={weather}
+				city={location.city}
+				country={location.country}
+				isLoading={isLoading}
+			/>
+			<ForecastDays 
+				isLoading={isLoading}
+			/>
+			<section className='configuration card-surface'>
+				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
+				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
+				<button onClick={() => setToggleTheme(!toggleTheme)}>
+					Tema {toggleTheme ? "escuro" : "claro"}
+				</button>
+			</section>
 		</>
 	)
 }
