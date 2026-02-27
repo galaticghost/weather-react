@@ -9,7 +9,7 @@ export function useWeather(location: Location | null, temperatureUnit: string, t
         if (!location?.latitude || !location?.longitude) return;
         const controller = new AbortController();
         (async () => {
-            //const d = new Date(); pra depois
+
             try {
                 setIsLoading(true);
                 const url = `https://api.open-meteo.com/v1/forecast?` +
@@ -26,7 +26,7 @@ export function useWeather(location: Location | null, temperatureUnit: string, t
                 const response = await fetch(url, { signal: controller.signal });
                 if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
                 const data = await response.json();
-                console.log(data);
+
                 const currentWeather: CurrentWeather = {
                     temperature: Math.round(data.current.temperature_2m),
                     apparentTemperature: Math.round(data.current.apparent_temperature),
@@ -37,7 +37,7 @@ export function useWeather(location: Location | null, temperatureUnit: string, t
                 };
 
                 const hourlyForecast: HourlyForecast[] = data.hourly.time.map((_time: string, index: number) => ({
-                    hour: data.hourly.time[index],
+                    hour: data.hourly.time[index].slice(11,16),
                     temperature: data.hourly.temperature_2m[index],
                     cloudCover: data.hourly.cloud_cover[index],
                     rain: data.hourly.rain[index]

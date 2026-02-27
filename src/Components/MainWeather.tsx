@@ -2,6 +2,7 @@ import windIcon from "../assets/wind.svg";
 import dropletIcon from "../assets/droplet.svg";
 import rainIcon from "../assets/rain.svg";
 import locationIcon from "../assets/location.svg";
+import { getCloudCoverDescription } from "../utils/utils";
 import type { CurrentWeather } from "../types/types";
 
 interface Props {
@@ -13,28 +14,19 @@ interface Props {
 }
 
 export default function MainWeather({ weather, temperatureUnit, city, country, isLoading }: Props) {
-
-    function getCloudCoverDescription(cloudCover: number): string {
-        if (cloudCover <= 10) return "Céu limpo";
-        if (cloudCover <= 30) return "Pouco nublado";
-        if (cloudCover <= 70) return "Parcialmente nublado";
-        if (cloudCover <= 90) return "Predominantemente nublado";
-        return "Completamente nublado";
-    }
-
     return (
         <section className="main-weather card-surface">
             {weather && !isLoading ?
-                <>
+                <>  
                     <h2 className="location">
-                        <img alt='Ícone de localização' src={locationIcon} className='icon' />
+                        <img alt='Ícone de localização' src={locationIcon} className='icon search-icon' />
                         {city},{country}
                     </h2>
                     <div className="division">
                         <div className="temperature">
                             <p className="current-temperature temperature">{weather.temperature}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
                             <p className="temperature">Sensação Térmica: {weather.apparentTemperature}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
-                            <p>{getCloudCoverDescription(weather.cloudCover)}</p>
+                            <p className="clouds">{getCloudCoverDescription(weather.cloudCover)}</p>
                         </div>
                         <div className="second-weather">
                             <span><img alt="Ícone de vento" src={windIcon} className="icon" />Vento: {weather.wind}km/h</span>

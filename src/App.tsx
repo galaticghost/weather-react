@@ -19,7 +19,9 @@ function App() {
 	const [toggleTheme, setToggleTheme] = useState(false);
 	const [location, setLocation] = useState<Location | null>(null);
 
-	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } = useWeather(location, temperatureUnit, timezone);
+	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } = 
+	useWeather(location, temperatureUnit, timezone);
+	
 	useEffect(() => {
 		setLocationByIp();
 	}, []);
