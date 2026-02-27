@@ -12,24 +12,28 @@ import './styles/reset.css';
 import locationIcon from './assets/location.svg';
 
 import type { Location, WeatherData } from "./types/types";
+import { useCurrentLocation } from './hooks/useCurrentLocation.tsx';
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 	const [temperatureUnit, setTemperatureUnit] = useState("celsius");
 	const [toggleTheme, setToggleTheme] = useState(false);
-	const [location, setLocation] = useState<Location | null>(null);
+	const currentLocation = useCurrentLocation();
+	const [location, setLocation] = useState<Location | null>(currentLocation);
 
-	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } = 
-	useWeather(location, temperatureUnit, timezone);
-	
-	useEffect(() => {
-		setLocationByIp();
-	}, []);
+	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } =
+		useWeather(location, temperatureUnit, timezone);
 
 	useEffect(() => {
 		document.documentElement.dataset.theme =
 			toggleTheme ? "light" : "dark";
 	}, [toggleTheme]);
+
+	useEffect(() => {
+		if (currentLocation) {
+			setLocation(currentLocation);
+		}
+	}, [currentLocation]);
 
 	const handleLocationChange = (location: Location) => {
 		setLocation(location);
@@ -44,36 +48,11 @@ function App() {
 	}
 
 	async function setLocationByIp(): Promise<void> {
-		const location = await getLocationFromIp();
+		const location = currentLocation;
 		if (location) {
 			setLocation(location);
 		}
 	}
-
-	async function getLocationFromIp(): Promise<Location | null> {
-		try {
-			const response = await fetch("https://ipinfo.io/json")
-			if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
-			const data = await response.json();
-
-			const [lat, log] = data.loc.split(",");
-
-			const location: Location = {
-				city: data.city,
-				country: data.country,
-				latitude: Number(lat),
-				longitude: Number(log)
-			};
-			return location;
-
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				console.log(error.message);
-			}
-			return null;
-		}
-	}
-
 	return (
 		// TODO CHANGE TITLE
 		<>

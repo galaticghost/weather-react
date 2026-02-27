@@ -17,7 +17,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
     return (
         <section className="main-weather card-surface">
             {weather && !isLoading ?
-                <>  
+                <>
                     <h2 className="location">
                         <img alt='Ícone de localização' src={locationIcon} className='icon search-icon' />
                         {city},{country}
