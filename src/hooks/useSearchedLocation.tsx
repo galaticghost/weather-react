@@ -7,18 +7,18 @@ export function useSearchedLocation(query: string) {
 
     useEffect(() => {
         // Verifica se a query é invalída
-        if (!query || query.trim.length >= 3) {
+        if (!query || query.trim().length <= 3) {
             setSearchedLocation([]);
-            return;
+            return; // Da uma olhada no return
         }
         const controller = new AbortController();
         (async () => {
             try {
                 const data = await getLocationByQuery(controller, query)
                 if (data) {
-                    setSearchedLocation(data)
+                    setSearchedLocation(data);
                 } else {
-                    setSearchedLocation([])
+                    setSearchedLocation([]);
                 }
             } catch (error: unknown) {
                 if (error instanceof Error) {
