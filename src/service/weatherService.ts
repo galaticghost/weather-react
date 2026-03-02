@@ -8,7 +8,7 @@ export async function getWeather(location: Location, timezone: string,
             `&longitude=${location.longitude}` +
             `&timezone=${timezone}` +
             `&forecast_days=1` +
-            `&temperature_unit=${temperatureUnit}` +
+            `&temperature_unit=celsius` +
             `&hourly=temperature_2m,cloud_cover,precipitation_probability` +
             `&current=temperature_2m,apparent_temperature,` +
             `cloud_cover,rain,precipitation_probability,wind_speed_10m`;

@@ -7,7 +7,7 @@ interface Props {
     isLoading: boolean;
     temperatureUnit: string;
 }
-//Mudar o texto de forecast
+
 export default function ForecastDays({ forecast, isLoading, temperatureUnit }: Props) {
     const scrollRef = useRef<HTMLUListElement>(null);
 
