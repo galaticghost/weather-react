@@ -47,6 +47,6 @@ export function useWeather(location: Location | null, temperatureUnit: string, t
         return () => {
             controller.abort("The user has made another request");
         }
-    }, [location, timezone, temperatureUnit]);
+    }, [location, timezone]);
     return { weather, isLoading };
 }

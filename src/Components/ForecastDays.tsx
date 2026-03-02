@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import type { HourlyForecast } from "../types/types";
-import { getCloudCoverDescription } from "../utils/utils";
+import { getCloudCoverDescription, formatTemp } from "../utils/utils";
 
 interface Props {
     forecast: HourlyForecast[] | undefined;
@@ -32,7 +32,7 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
                         {forecast.map((weather, index) => (
                             <li className="forecast-item" key={index}>
                                 <span>{weather.hour}</span>
-                                <span className="forecast-temperature">{weather.temperature}º{temperatureUnit === "celsius" ? "C" : "F"}</span>
+                                <span className="forecast-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</span>
                                 <span>Chuva {weather.precipitation_probability}%,</span>
                                 <span>{getCloudCoverDescription(weather.cloudCover)}</span>
                             </li>

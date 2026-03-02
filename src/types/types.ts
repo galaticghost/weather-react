@@ -23,7 +23,7 @@ export type CurrentWeather = {
 };
 
 export type WeatherData = {
-    current: CurrentWeather | null;
+    current: CurrentWeather;
     hourly: HourlyForecast[];
 }
 

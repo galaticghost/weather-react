@@ -2,7 +2,7 @@ import windIcon from "../assets/wind.svg";
 import dropletIcon from "../assets/droplet.svg";
 import rainIcon from "../assets/rain.svg";
 import locationIcon from "../assets/location.svg";
-import { getCloudCoverDescription } from "../utils/utils";
+import { getCloudCoverDescription, formatTemp } from "../utils/utils";
 import type { CurrentWeather } from "../types/types";
 
 interface Props {
@@ -24,7 +24,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
                     </h2>
                     <div className="division">
                         <div className="temperature">
-                            <p className="current-temperature temperature">{weather.temperature}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
+                            <p className="current-temperature temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
                             <p className="temperature">Sensação Térmica: {weather.apparentTemperature}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
                             <p className="clouds">{getCloudCoverDescription(weather.cloudCover)}</p>
                         </div>
