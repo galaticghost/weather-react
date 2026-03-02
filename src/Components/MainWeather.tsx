@@ -25,7 +25,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
                     <div className="division">
                         <div className="temperature">
                             <p className="current-temperature temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
-                            <p className="temperature">Sensação Térmica: {weather.apparentTemperature}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
+                            <p className="temperature">Sensação Térmica: {formatTemp(weather.apparentTemperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
                             <p className="clouds">{getCloudCoverDescription(weather.cloudCover)}</p>
                         </div>
                         <div className="second-weather">
