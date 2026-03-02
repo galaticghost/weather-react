@@ -26,28 +26,32 @@
     --text-primary: #0F172A;
     --text-secondary: #475569;
     --surface-glass: rgba(255,255,255,0.7);
-    --surface-border: rgba(15,23,42,0.08);
+    --surface-border: rgba(148, 163, 184, 0.35);
     --input-bg: #FFFFFF;
     --surface-elevated: #FFFFFF;
     --input-border: #CBD5E1;
     --accent: #0284C7;
     --hover-surface: #E2E8F0;
-    --shadow-strong: rgba(15,23,42,0.12);
-    --shadow-soft: rgba(15,23,42,0.08);
+    --shadow-strong: rgba(15,23,42,0.06);
+    --shadow-soft: rgba(15,23,42,0.04);
     --icon-filter: invert(0%);
 }
-
-.root {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    height: 100vh;
+body {
     background: linear-gradient(
         180deg,
         var(--background-one),
         var(--background-two)
     );
     color: var(--text-primary);
+}
+
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 100vh;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .icon {
@@ -76,6 +80,7 @@
     border: 1px solid var(--surface-border);
     margin: 0 0.5rem;
     box-shadow: 0 10px 25px var(--shadow-strong);
+    /*width: 100%;*/
 }
 
 .location-selector {
@@ -135,18 +140,22 @@
     transition: background 0.15s ease;
 }
 
-.ip-location {
+.button {
     border: 1px solid var(--input-border);
-    margin: 0 0.5rem;
+    border-radius: 0.5rem;
     padding: 0.5rem;
     text-align: center;
-    border-radius: 0.5rem;
 }
 
-.ip-location:hover {
+.button:hover {    
     background-color: var(--hover-surface);
     color: var(--text-primary);
     transition: background 0.15s ease;
+
+}
+
+.ip-location {
+    margin: 0 0.5rem;
 }
 
 .main-weather {
@@ -201,23 +210,77 @@
     display: flex;
     flex-direction: row;
     padding: 0.5rem 0;
-    overflow-x: scroll;
+    overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-left: 20px;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+}
+
+.forecast-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    /*Ajuda a centralizar o botão*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-button.left {
+    left: -10px;
+}
+
+.scroll-button.right {
+    right: -10px;
+}
+
+.forecast-container:hover .scroll-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.scroll-button:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.forecast-list::-webkit-scrollbar {
+    height: 6px;
+}
+
+.forecast-list::-webkit-scrollbar-thumb {
+    background: var(--surface-border);
+    border-radius: 10px;
 }
 
 .forecast-item {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem; 
     align-items: center;
     border-radius: 0.5rem;
     border: 1px solid var(--surface-border);
     padding: 1rem;
-    margin: 0 0.5rem;
     text-align: center;
     color: var(--text-secondary);
-    scroll-snap-align: start;
+    scroll-snap-align: center;
+    flex: 0 0 120px;
 }
 
 .forecast-temperature {
@@ -233,6 +296,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.toggle-theme {
+    margin: 0 0.5rem;
 }
 
 @media (max-width: 858px) {
@@ -262,4 +329,67 @@
 }
 @keyframes l13{ 
   100%{transform: rotate(1turn)}
+}
+
+@media (min-width: 900px) {
+
+    .root {
+        display: grid;
+        grid-template-columns: 340px minmax(0, 1fr);;
+        grid-template-areas:
+            "header header"
+            "location location"
+            "main forecast"
+            "config config";
+        gap: 0.75rem;
+    }
+
+    .header-title {
+        padding: 0.5rem 0;
+        margin: 0.5rem 1rem;
+        font-size: 1.25rem;
+        grid-area: header;
+    }
+
+    .location-selector { 
+        padding: 0.75rem 0;
+        gap: 0.5rem;
+        grid-area: location;
+        align-self: start;
+    }
+
+    .ip-location {
+        padding: 0.4rem;
+        font-size: 0.95rem;
+    }
+
+    .search-bar input {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .main-weather { 
+        grid-area: main;
+        min-height: 220px;
+        align-items: start;
+    }
+
+    .division {
+        flex-direction: column;
+        line-height: 1.5;
+    }
+
+    .current-temperature {
+        font-size: 3rem;
+    }
+
+    .forecast-days { 
+        grid-area: forecast;
+        align-self: start;
+    }
+
+    .configuration { 
+        grid-area: config; 
+        margin-bottom: 2rem;
+    }
 }

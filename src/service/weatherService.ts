@@ -6,11 +6,10 @@ export async function getWeather(location: Location, timezone: string,
         const url = `https://api.open-meteo.com/v1/forecast?` +
             `latitude=${location.latitude}` +
             `&longitude=${location.longitude}` +
-            `&hourly=temperature_2m` +
             `&timezone=${timezone}` +
             `&forecast_days=1` +
             `&temperature_unit=${temperatureUnit}` +
-            `&hourly=temperature_2m,cloud_cover,rain` +
+            `&hourly=temperature_2m,cloud_cover,precipitation_probability` +
             `&current=temperature_2m,apparent_temperature,` +
             `cloud_cover,rain,precipitation_probability,wind_speed_10m`;
 

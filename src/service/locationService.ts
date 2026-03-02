@@ -27,13 +27,11 @@ export async function getLocationByQuery(controller: AbortController, query: str
 }
 export async function getLocationByIp(controller: AbortController): Promise<Location | null> {
     try {
-        //Mudar api
         const response = await fetch("https://ipinfo.io/json", { signal: controller.signal })
         if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
         const data = await response.json();
-        console.log(data);
-        const [lat, log] = data.loc.split(",");
 
+        const [lat, log] = data.loc.split(",");
         const location: Location = {
             city: data.city,
             country: data.country,

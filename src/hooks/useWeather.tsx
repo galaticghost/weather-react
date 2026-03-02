@@ -28,7 +28,7 @@ export function useWeather(location: Location | null, temperatureUnit: string, t
                         hour: data.hourly.time[index].slice(11, 16),
                         temperature: Math.round(data.hourly.temperature_2m[index]),
                         cloudCover: data.hourly.cloud_cover[index],
-                        rain: data.hourly.rain[index]
+                        precipitation_probability: data.hourly.precipitation_probability[index]
                     }));
 
 

@@ -43,6 +43,7 @@ export default function SearchLocation({ setLocation }: Props) {
             <input type="text" autoComplete="off"
                 placeholder="Digite o nome da cidade..."
                 onChange={(e) => setQuery(e.target.value)}
+                name="locationQuery"
             />
             <div className="results-container" ref={outsideRef}>
                 {showSuggestions && suggestions.length > 0 && (suggestions.map((suggestion, index) => (

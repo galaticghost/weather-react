@@ -3,7 +3,7 @@ import { useWeather } from "./hooks/useWeather.tsx";
 
 import Timezones from './Components/Timezones.tsx';
 import MainWeather from './Components/MainWeather.tsx';
-import SearchLocation from './Components/SearchLocation.tsx';
+import SearchBar from './Components/SearchBar.tsx';
 import TemperatureUnit from './Components/TemperatureUnit.tsx';
 import ForecastDays from './Components/ForecastDays.tsx';
 
@@ -60,8 +60,8 @@ function App() {
 				<h1>Weather React</h1>
 			</header>
 			<section className="location-selector card-surface">
-				<SearchLocation setLocation={handleLocationChange} />
-				<button className="ip-location" onClick={setLocationByIp}>
+				<SearchBar setLocation={handleLocationChange} />
+				<button className="ip-location button" onClick={setLocationByIp}>
 					<img alt='Ícone de localização' src={locationIcon} className='icon' />
 					Use a minha localização
 				</button>
@@ -76,11 +76,12 @@ function App() {
 			<ForecastDays
 				forecast={weather?.hourly}
 				isLoading={isLoading}
+				temperatureUnit={temperatureUnit}
 			/>
 			<section className='configuration card-surface'>
 				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
 				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
-				<button onClick={() => setToggleTheme(!toggleTheme)}>
+				<button className='button toggle-theme' onClick={() => setToggleTheme(!toggleTheme)}>
 					Tema {toggleTheme ? "escuro" : "claro"}
 				</button>
 			</section>

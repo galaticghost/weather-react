@@ -10,7 +10,7 @@ export type HourlyForecast = {
     temperature: number;
     hour: string;
     cloudCover: number;
-    rain: number;
+    precipitation_probability: number;
 }
 
 export type CurrentWeather = {
@@ -40,7 +40,7 @@ export type ApiWeatherResponse = {
         time: string[],
         temperature_2m: number[],
         cloud_cover: number[],
-        rain: number[],
+        precipitation_probability: number[],
     };
 }
 

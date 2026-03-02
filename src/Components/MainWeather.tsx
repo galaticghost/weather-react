@@ -31,7 +31,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
                         <div className="second-weather">
                             <span><img alt="Ícone de vento" src={windIcon} className="icon" />Vento: {weather.wind}km/h</span>
                             <span><img alt="Ícone de gota" src={dropletIcon} className="icon" />Umidade: {weather.humidity}%</span>
-                            <span><img alt="Ícone de nuvem de chuva" src={rainIcon} className="icon" />Precipitação: {weather.precipitation}%</span>
+                            <span><img alt="Ícone de nuvem de chuva" src={rainIcon} className="icon" />Precipitação: {weather.precipitation}mm</span>
                         </div>
                     </div>
                 </>
