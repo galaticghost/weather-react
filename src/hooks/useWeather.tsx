@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getWeather } from "../service/weatherService";
 import type { Location, WeatherData, CurrentWeather, HourlyForecast } from "../types/types";
 
-export function useWeather(location: Location | null, temperatureUnit: string, timezone: string,) {
+export function useWeather(location: Location | null, timezone: string,) {
     const [weather, setWeather] = useState<WeatherData | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -13,7 +13,7 @@ export function useWeather(location: Location | null, temperatureUnit: string, t
 
             try {
                 setIsLoading(true);
-                const data = await getWeather(location, timezone, temperatureUnit, controller);
+                const data = await getWeather(location, timezone, controller);
                 if (data !== null) {
                     const currentWeather: CurrentWeather = {
                         temperature: Math.round(data.current.temperature_2m),

@@ -1,7 +1,7 @@
 import type { ApiWeatherResponse, Location } from "../types/types";
 
 export async function getWeather(location: Location, timezone: string,
-    temperatureUnit: string, controller: AbortController): Promise<ApiWeatherResponse | null> {
+    controller: AbortController): Promise<ApiWeatherResponse | null> {
     try {
         const url = `https://api.open-meteo.com/v1/forecast?` +
             `latitude=${location.latitude}` +

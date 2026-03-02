@@ -22,7 +22,7 @@ function App() {
 	const [location, setLocation] = useState<Location | null>(currentLocation);
 
 	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } =
-		useWeather(location, temperatureUnit, timezone);
+		useWeather(location, timezone);
 
 	useEffect(() => {
 		document.documentElement.dataset.theme =
