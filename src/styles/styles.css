@@ -138,6 +138,7 @@ body {
     background-color: var(--hover-surface);
     color: var(--text-primary);
     transition: background 0.15s ease;
+    border-radius: 0.25rem;
 }
 
 .button {
