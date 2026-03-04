@@ -23,7 +23,7 @@ function App() {
 
 	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } =
 		useWeather(location, timezone);
-
+	
 	useEffect(() => {
 		document.documentElement.dataset.theme =
 			toggleTheme ? "light" : "dark";

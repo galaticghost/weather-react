@@ -8,7 +8,7 @@ interface Props {
 export default function TemperatureUnit({ onClick, temperatureUnit }: Props) {
 
     return (
-        <span className='temperature-unit'>
+        <div className='temperature-unit'>
             <button
                 className={`temperature-unit ${temperatureUnit === "celsius" ? "temperature-unit-disable" : ""}`}
                 value="celsius"
@@ -26,6 +26,6 @@ export default function TemperatureUnit({ onClick, temperatureUnit }: Props) {
             >
                 ºF
             </button>
-        </span>
+        </div>
     );
 }
