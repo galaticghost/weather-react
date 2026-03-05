@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import type { HourlyForecast } from "../types/types";
 import { getCloudCoverDescription, formatTemp } from "../utils/utils";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     forecast: HourlyForecast[] | undefined;
@@ -10,7 +11,7 @@ interface Props {
 
 export default function ForecastDays({ forecast, isLoading, temperatureUnit }: Props) {
     const scrollRef = useRef<HTMLUListElement>(null);
-
+    const { t } = useTranslation();
     function scroll(direction: number) {
         scrollRef.current?.scrollBy({
             left: 320 * direction,
@@ -19,7 +20,7 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
     }
     return (
         <section className='forecast-days card-surface'>
-            <h2 className="location">Previsão do Tempo</h2>
+            <h2 className="location">{t("forecast.forecast")}</h2>
             {forecast && !isLoading ?
                 <div className="forecast-container">
                     <button
@@ -33,8 +34,8 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
                             <li className="forecast-item" key={index}>
                                 <span>{weather.hour}</span>
                                 <span className="forecast-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</span>
-                                <span>Chance de chuva {weather.precipitation_probability}%,</span>
-                                <span>{getCloudCoverDescription(weather.cloudCover)}</span>
+                                <span>{t("forecast.rainChance")} {weather.precipitation_probability}%,</span>
+                                <span>{t(getCloudCoverDescription(weather.cloudCover))}</span>
                             </li>
                         ))}
 
@@ -49,7 +50,7 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
                 :
                 <div className='loader-div'>
                     <div className='loader'></div>
-                    <p>Carregando...</p>
+                    <p>{t("loading")}</p>
                 </div>
             }</section>
     )

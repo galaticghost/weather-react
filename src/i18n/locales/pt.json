@@ -1,0 +1,30 @@
+{
+    "search": {
+        "searchPlaceholder": "Digite o nome de uma cidade...",
+        "queryError": "Não foi encontrada nenhuma localização com esse nome."
+    },
+    "main": {
+        "myLocation": "Use a minha localização",
+        "theme": "Tema",
+        "dark": "escuro",
+        "light": "claro"
+    },
+    "currentWeather": {
+        "apparentTemperature": "Sensação Térmica",
+        "wind": "Vento",
+        "humidity": "Umidade",
+        "precipitation": "Precipitação"
+    },
+    "forecast": {
+        "forecast": "Previsão do Tempo",
+        "rainChance": "Chance de chuva"
+    },
+    "cloudCover": {
+        "clear": "☀️ Céu limpo",
+        "fewClouds": "🌤️ Poucas nuvens",
+        "partlyCloudy": "⛅ Parcialmente nublado",
+        "cloudy": "☁️ Nublado",
+        "overcast": "☁️ Encoberto"
+    },
+    "loading": "Caregando..."
+}

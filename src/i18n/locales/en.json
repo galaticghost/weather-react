@@ -1,0 +1,30 @@
+{
+    "search": {
+        "searchPlaceholder": "Search for a city...",
+        "queryError": "No location was found with this name."
+    },
+    "main": {
+        "myLocation": "Use my Location",
+        "theme": "Theme",
+        "dark": "dark",
+        "light": "light"
+    },
+    "currentWeather": {
+        "apparentTemperature": "Apparent Temperature",
+        "wind": "Wind Speed",
+        "humidity": "Humidity",
+        "precipitation": "Precipitation"
+    },
+    "forecast": {
+        "forecast": "Weather Forecast",
+        "rainChance": "Chance of Rain"
+    },
+    "cloudCover": {
+        "clear": "☀️ Clear",
+        "fewClouds": "🌤️ Few clouds",
+        "partlyCloudy": "⛅ Partly cloudy",
+        "cloudy": "☁️ Cloudy",
+        "overcast": "☁️ Overcast"
+    },
+    "loading": "Loading..."
+}

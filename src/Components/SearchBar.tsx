@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useClickOutside } from "../hooks/useClickOutside";
 import type { Location } from "../types/types";
 import { useSearchedLocation } from "../hooks/useSearchedLocation";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     setLocation: (location: Location) => void;
@@ -13,6 +14,7 @@ export default function SearchLocation({ setLocation }: Props) {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const suggestions: Location[] | null = useSearchedLocation(debouncedQuery);
     const outsideRef = useRef<HTMLDivElement | null>(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -41,7 +43,7 @@ export default function SearchLocation({ setLocation }: Props) {
     return (
         <section className="search-bar">
             <input type="text" autoComplete="off"
-                placeholder="Digite o nome da cidade..."
+                placeholder={t("search.searchPlaceholder")}
                 onChange={(e) => setQuery(e.target.value)}
                 name="locationQuery"
             />
@@ -52,7 +54,7 @@ export default function SearchLocation({ setLocation }: Props) {
                     </button>
                 )))
                 }
-                {showSuggestions && suggestions.length == 0 && <div className="result">Não foi encontrada nenhuma localização com esse nome.</div>}
+                {showSuggestions && suggestions.length == 0 && <div className="result">{t("search.queryError")}</div>}
             </div>
         </section>
     )
