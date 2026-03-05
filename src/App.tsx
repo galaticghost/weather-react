@@ -13,7 +13,7 @@ import locationIcon from './assets/location.svg';
 
 import type { Location, WeatherData } from "./types/types";
 import { useCurrentLocation } from './hooks/useCurrentLocation.tsx';
-import { getWeatherGradient } from './utils/utils.ts';
+//import { getWeatherGradient } from './utils/utils.ts';
 import { useTranslation } from 'react-i18next';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
 
 	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } =
 		useWeather(location, timezone);
-	const [background, setBackground] = useState("");
+	//const [background, setBackground] = useState("");
 	const { t, i18n } = useTranslation();
 
 	useEffect(() => {
@@ -39,12 +39,12 @@ function App() {
 		}
 	}, [currentLocation]);
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (weather) {
 			setBackground(getWeatherGradient(weather.current.cloudCover,
 				weather.current.precipitation));
 		}
-	}, [weather])
+	}, [weather])*/
 
 	const handleLocationChange = (location: Location) => {
 		setLocation(location);
