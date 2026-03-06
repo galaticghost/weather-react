@@ -19,7 +19,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
                 <>
                     <h2 className="location">
                         <img alt='Ícone de localização' src={locationIcon} className='icon search-icon' />
-                        {city},{country}
+                        {city}, {country}
                     </h2>
                     <div className="temperature">
                         <p className="current-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
@@ -31,7 +31,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
                     </div>
                     <div className="weather-details">
                         <div className="weather-row">
-                            <span>🌬️ {t("currentWeather.wind")}:</span>
+                            <span>🍃 {t("currentWeather.wind")}:</span>
                             <span>{weather.wind}km/h</span>
                         </div>
                         <div className="weather-row">

@@ -55,13 +55,13 @@ O projeto vai estar disponível em:
 
 ---
 ## 🌐 APIs utilizadas
-  - Open-Meteo
-  - IPinfo
-  - Photon
+  - **Open-Meteo** API responsável por fornecer dados meteorológicos atuais e previsão horária.
+  - **IPinfo** - Utilizada para detectar a localização aproximada do usuário através do endereço IP.
+  - **Photon** - Serviço de geocoding usado para buscar cidades e fornecer sugestões durante a digitação.
 
 ---
 ## 🌍 Deploy
 
 A aplicação está disponível em:
 
-[weather-react-nine-pi.vercel.app](https://weather-react-nine-pi.vercel.app)
+[https://weather-react-nine-pi.vercel.app](https://weather-react-nine-pi.vercel.app)
