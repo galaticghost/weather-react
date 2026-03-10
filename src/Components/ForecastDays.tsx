@@ -2,6 +2,7 @@ import { useRef } from "react";
 import type { HourlyForecast } from "../types/types";
 import { getCloudCoverDescription, formatTemp } from "../utils/utils";
 import { useTranslation } from "react-i18next";
+import "../styles/forecastDays.css";
 
 interface Props {
     forecast: HourlyForecast[] | undefined;

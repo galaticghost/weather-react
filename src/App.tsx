@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useWeather } from "./hooks/useWeather.tsx";
 
 import Timezones from './Components/Timezones.tsx';
-import MainWeather from './Components/CurrentWeather.tsx';
+import CurrentWeather from './Components/CurrentWeather.tsx';
 import SearchBar from './Components/SearchBar.tsx';
 import TemperatureUnit from './Components/TemperatureUnit.tsx';
 import ForecastDays from './Components/ForecastDays.tsx';
@@ -72,6 +72,7 @@ function App() {
 			<header className="header-title">
 				<h1>Weather React</h1>
 			</header>
+
 			<section className="location-selector card-surface">
 				<SearchBar setLocation={handleLocationChange} />
 				<button className="ip-location button" onClick={setLocationByIp}>
@@ -79,25 +80,28 @@ function App() {
 					{t("main.myLocation")}
 				</button>
 			</section>
-			<MainWeather
+
+			<CurrentWeather
 				temperatureUnit={temperatureUnit}
 				weather={weather?.current}
 				city={location?.city}
 				country={location?.country}
 				isLoading={isLoading}
 			/>
+
 			<ForecastDays
 				forecast={weather?.hourly}
 				isLoading={isLoading}
 				temperatureUnit={temperatureUnit}
 			/>
+
 			<section className='configuration card-surface'>
 				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
 				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
 				<button className='button toggle-theme' onClick={() => setToggleTheme(!toggleTheme)}>
 					{t("main.theme")} {toggleTheme ? t("main.dark") : t("main.light")}
 				</button>
-				<button className="button" onClick={() => changeLanguage('pt')}>
+				<button className="button" onClick={() => i18n.changeLanguage('pt')}>
 					pt
 				</button>
 				<button className="button" onClick={() => changeLanguage('en')}>

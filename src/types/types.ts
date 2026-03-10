@@ -5,7 +5,6 @@ export type Location = {
     longitude: number | null;
 };
 
-//Refazer TODO
 export type HourlyForecast = {
     temperature: number;
     hour: string;

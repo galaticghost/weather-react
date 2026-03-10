@@ -3,6 +3,7 @@ import { useClickOutside } from "../hooks/useClickOutside";
 import type { Location } from "../types/types";
 import { useSearchedLocation } from "../hooks/useSearchedLocation";
 import { useTranslation } from "react-i18next";
+import "../styles/searchBar.css";
 
 interface Props {
     setLocation: (location: Location) => void;

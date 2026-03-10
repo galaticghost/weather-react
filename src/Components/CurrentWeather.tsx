@@ -2,6 +2,7 @@ import locationIcon from "../assets/location.svg";
 import { getCloudCoverDescription, formatTemp } from "../utils/utils";
 import type { CurrentWeather } from "../types/types";
 import { useTranslation } from "react-i18next";
+import "../styles/currentWeather.css";
 
 interface Props {
     weather: CurrentWeather | null | undefined;

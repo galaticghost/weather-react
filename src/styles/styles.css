@@ -77,64 +77,6 @@ body {
     box-shadow: 0 10px 25px var(--shadow-strong);
 }
 
-.location-selector {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 1rem 0;
-
-    position: relative;
-    box-shadow: 0 10px 25px var(--shadow-soft);
-}
-
-.search-bar {
-    display: flex;
-    flex-direction: column;
-    margin: 0 0.5rem;
-    position: relative;
-}
-
-.search-bar input {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    color: var(--text-primary);
-}
-
-.search-bar input:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px var(--shadow-strong);
-}
-
-.results-container {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--surface-elevated);
-    border-radius: 0.25rem;
-    position: absolute;
-    z-index: 100;
-    top: calc(100% + 4px);
-    width: 100%;
-    left: 0;
-    box-shadow: 0 10px 25px var(--shadow-soft);
-}
-
-.result {
-    background: transparent;
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    color: var(--text-secondary);
-}
-
-.result:hover {
-    background-color: var(--hover-surface);
-    color: var(--text-primary);
-    transition: background 0.15s ease;
-    border-radius: 0.25rem;
-}
-
 .button {
     border: 1px solid var(--input-border);
     border-radius: 0.5rem;
@@ -146,48 +88,10 @@ body {
     background-color: var(--hover-surface);
     color: var(--text-primary);
     transition: background 0.15s ease;
-
 }
 
 .ip-location {
     margin: 0 0.5rem;
-}
-
-.current-weather {
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    color: var(--text-primary);
-    margin: 0 0.5rem;
-    /*background-image: url("../assets/fewclouds.jpg");*/
-    text-shadow: 0 0 5px var(--shadow-strong);
-}
-
-.location {
-    font-size: 1.5rem;
-    line-height: 2rem;
-}
-
-.location > img {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0;
-}
-
-.weather-details {
-    display: flex;
-    flex-direction: column;
-    gap: 6px 12px;
-    opacity: 0.9;
-    color: var(--text-secondary);
-    width: 100%;
-}
-
-.weather-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .temperature {
@@ -201,92 +105,6 @@ body {
     font-weight: 700;
     line-height: 1;
     letter-spacing: -1px;
-}
-
-.forecast-days {
-    padding: 1rem;
-}
-
-.forecast-list {
-    display: flex;
-    flex-direction: row;
-    padding: 0.5rem 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: 20px;
-    scrollbar-width: none;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    gap: 1rem;
-}
-
-.forecast-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.scroll-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(6px);
-    color: white;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    /*Ajuda a centralizar o botão*/
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.scroll-button.left {
-    left: -10px;
-}
-
-.scroll-button.right {
-    right: -10px;
-}
-
-.forecast-container:hover .scroll-button {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.scroll-button:hover {
-    transform: translateY(-50%) scale(1.1);
-}
-
-.forecast-list::-webkit-scrollbar {
-    height: 6px;
-}
-
-.forecast-list::-webkit-scrollbar-thumb {
-    background: var(--surface-border);
-    border-radius: 10px;
-}
-
-.forecast-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 0.5rem;
-    border: 1px solid var(--surface-border);
-    padding: 1rem;
-    text-align: center;
-    color: var(--text-secondary);
-    scroll-snap-align: center;
-    flex: 0 0 120px;
-}
-
-.forecast-temperature {
-    color: var(--text-primary);
-    font-size: 1.25rem;
 }
 
 .configuration {
