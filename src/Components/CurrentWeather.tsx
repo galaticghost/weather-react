@@ -41,7 +41,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
                         </div>
                         <div className="weather-row">
                             <span>🌧️ {t("currentWeather.precipitation")}:</span>
-                            <span>{weather.precipitation}mm</span>
+                            <span>{weather.precipitation} mm</span>
                         </div>
                     </div>
                 </>

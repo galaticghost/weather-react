@@ -15,6 +15,8 @@ import type { Location, WeatherData } from "./types/types";
 import { useCurrentLocation } from './hooks/useCurrentLocation.tsx';
 //import { getWeatherGradient } from './utils/utils.ts';
 import { useTranslation } from 'react-i18next';
+import ChangeLanguage from './Components/ChangeLanguage.tsx';
+import ToggleTheme from './Components/ToggleTheme.tsx';
 
 function App() {
 	const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -27,7 +29,6 @@ function App() {
 		useWeather(location, timezone);
 	//const [background, setBackground] = useState("");
 	const { t, i18n } = useTranslation();
-
 	useEffect(() => {
 		document.documentElement.dataset.theme =
 			toggleTheme ? "light" : "dark";
@@ -49,6 +50,7 @@ function App() {
 	const handleLocationChange = (location: Location) => {
 		setLocation(location);
 	}
+
 	const handleTimezoneChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setTimezone(event.target.value);
 	}
@@ -96,18 +98,17 @@ function App() {
 			/>
 
 			<section className='configuration card-surface'>
-				<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
-				<Timezones timezone={timezone} onChange={handleTimezoneChange} />
-				<button className='button toggle-theme' onClick={() => setToggleTheme(!toggleTheme)}>
-					{t("main.theme")} {toggleTheme ? t("main.dark") : t("main.light")}
-				</button>
-				<button className="button" onClick={() => i18n.changeLanguage('pt')}>
-					pt
-				</button>
-				<button className="button" onClick={() => changeLanguage('en')}>
-					en
-				</button>
+				<p>Configurações</p>
+				<div className='options'>
+					<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
+					<Timezones timezone={timezone} onChange={handleTimezoneChange} />
+					<ToggleTheme value={toggleTheme} onChange={setToggleTheme}/>
+					<ChangeLanguage i18n={i18n} changeLanguage={changeLanguage} />
+				</div>
 			</section>
+
+			<footer>
+			</footer>
 		</>
 	)
 }

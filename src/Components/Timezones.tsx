@@ -1,4 +1,5 @@
 import type { ChangeEventHandler } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ContinentTimezones {
     continent: string,
@@ -14,7 +15,7 @@ interface Props {
     timezone: string;
     onChange: (ChangeEventHandler<HTMLSelectElement>);
 }
-
+/*TODO TRADUÇÃO DAS TIMEZONES*/
 const options: Array<ContinentTimezones> = [
     {
         continent: "América Latina", timezones: [
@@ -71,9 +72,11 @@ const options: Array<ContinentTimezones> = [
 ];
 
 export default function Timezones({ timezone, onChange }: Props) {
+    const { t } = useTranslation();
+
     return (
-        <div className="timezones-div">
-            <label htmlFor="timezones" className="timezones-label">Fuso horário</label>
+        <div className="item">
+            <p>{t("timezone.timezone")}</p>
             <select
                 name="timezones"
                 id="timezones"

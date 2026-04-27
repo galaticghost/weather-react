@@ -6,8 +6,8 @@
     "main": {
         "myLocation": "Use a minha localização",
         "theme": "Tema",
-        "dark": "escuro",
-        "light": "claro"
+        "dark": "Escuro",
+        "light": "Claro"
     },
     "currentWeather": {
         "apparentTemperature": "Sensação Térmica",
@@ -25,6 +25,15 @@
         "partlyCloudy": "⛅ Parcialmente nublado",
         "cloudy": "☁️ Nublado",
         "overcast": "☁️ Encoberto"
+    },    
+    "language": {
+        "language": "Idioma"
+    },
+    "temperatureUnit": {
+        "temperatureUnit": "Unidade de Temperatura"
+    },
+    "timezone": {
+        "timezone": "Fuso Horário"
     },
     "loading": "Caregando..."
 }

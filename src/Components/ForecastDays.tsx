@@ -13,6 +13,7 @@ interface Props {
 export default function ForecastDays({ forecast, isLoading, temperatureUnit }: Props) {
     const scrollRef = useRef<HTMLUListElement>(null);
     const { t } = useTranslation();
+    
     function scroll(direction: number) {
         scrollRef.current?.scrollBy({
             left: 320 * direction,

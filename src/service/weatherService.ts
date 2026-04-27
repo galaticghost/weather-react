@@ -16,7 +16,6 @@ export async function getWeather(location: Location, timezone: string,
         const response = await fetch(url, { signal: controller.signal });
         if (!response.ok) { throw new Error(`Response status: ${response.status}`); }
         const data = await response.json();
-
         return data;
     } catch (error: unknown) {
         if (error instanceof Error) {

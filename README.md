@@ -55,7 +55,7 @@ O projeto vai estar disponível em:
 
 ---
 ## 🌐 APIs utilizadas
-  - **Open-Meteo** API responsável por fornecer dados meteorológicos atuais e previsão horária.
+  - **Open-Meteo** - API responsável por fornecer dados meteorológicos atuais e previsão horária.
   - **IPinfo** - Utilizada para detectar a localização aproximada do usuário através do endereço IP.
   - **Photon** - Serviço de geocoding usado para buscar cidades e fornecer sugestões durante a digitação.
 

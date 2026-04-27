@@ -6,8 +6,8 @@
     "main": {
         "myLocation": "Use my Location",
         "theme": "Theme",
-        "dark": "dark",
-        "light": "light"
+        "dark": "Dark",
+        "light": "Light"
     },
     "currentWeather": {
         "apparentTemperature": "Apparent Temperature",
@@ -25,6 +25,15 @@
         "partlyCloudy": "⛅ Partly cloudy",
         "cloudy": "☁️ Cloudy",
         "overcast": "☁️ Overcast"
+    },
+    "language": {
+        "language": "Language"
+    },
+    "temperatureUnit": {
+        "temperatureUnit": "Temperature Unit"
+    },
+    "timezone": {
+        "timezone": "Time Zone"
     },
     "loading": "Loading..."
 }
