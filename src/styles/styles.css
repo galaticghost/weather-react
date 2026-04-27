@@ -183,7 +183,7 @@ body {
 
     .root {
         display: grid;
-        grid-template-columns: 340px minmax(0, 1fr);;
+        grid-template-columns: 340px minmax(0, 1fr);
         grid-template-areas:
             "header header"
             "location location"
@@ -234,12 +234,16 @@ body {
 
     .forecast-days { 
         grid-area: forecast;
-        align-self: start;
     }
 
     .configuration { 
         grid-area: config; 
         margin-bottom: 2rem;
+        justify-content: flex-start;
+    }
+
+    .configuration > p {
+        justify-self: flex-start;
     }
 
     .options {

@@ -103,7 +103,7 @@ function App() {
 					<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
 					<Timezones timezone={timezone} onChange={handleTimezoneChange} />
 					<ToggleTheme value={toggleTheme} onChange={setToggleTheme}/>
-					<ChangeLanguage i18n={i18n} changeLanguage={changeLanguage} />
+					<ChangeLanguage language={i18n.language} changeLanguage={changeLanguage} />
 				</div>
 			</section>
 

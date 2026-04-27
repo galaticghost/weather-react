@@ -7,13 +7,12 @@ interface Props {
 
 export default function TemperatureUnit({ onClick, temperatureUnit }: Props) {
     const {t} = useTranslation();
-
     return (
         <div className='temperature-unit item'>
             <p>{t("temperatureUnit.temperatureUnit")}</p>
             <div className='button-group'>
                 <button
-                    className={`button`}
+                    className={`button ${temperatureUnit === "celsius" ? "button-active" : ""}`}
                     value="celsius"
                     onClick={onClick}
                     disabled={temperatureUnit === "celsius"}
@@ -21,7 +20,7 @@ export default function TemperatureUnit({ onClick, temperatureUnit }: Props) {
                     ºC
                 </button>
                 <button
-                    className={`button`}
+                    className={`button ${temperatureUnit === "fahrenheit" ? "button-active" : ""}`}
                     value="fahrenheit"
                     onClick={onClick}
                     disabled={temperatureUnit === "fahrenheit"}
