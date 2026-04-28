@@ -98,7 +98,7 @@ function App() {
 			/>
 
 			<section className='configuration card-surface'>
-				<p>Configurações</p>
+				<p>{t("main.configurations")}</p>
 				<div className='options'>
 					<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
 					<Timezones timezone={timezone} onChange={handleTimezoneChange} />

@@ -5,6 +5,7 @@
     },
     "main": {
         "myLocation": "Use a minha localização",
+        "configurations": "Configurações",
         "theme": "Tema",
         "dark": "Escuro",
         "light": "Claro"
