@@ -8,7 +8,7 @@ interface Props {
 export default function TemperatureUnit({ onClick, temperatureUnit }: Props) {
     const {t} = useTranslation();
     return (
-        <div className='temperature-unit item'>
+        <div className='item'>
             <p>{t("temperatureUnit.temperatureUnit")}</p>
             <div className='button-group'>
                 <button

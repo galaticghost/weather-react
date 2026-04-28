@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useWeather } from "./hooks/useWeather.tsx";
 
-import Timezones from './Components/Timezones.tsx';
+import Timezone from './Components/Timezone.tsx';
 import CurrentWeather from './Components/CurrentWeather.tsx';
 import SearchBar from './Components/SearchBar.tsx';
 import TemperatureUnit from './Components/TemperatureUnit.tsx';
@@ -101,7 +101,7 @@ function App() {
 				<p>{t("main.configurations")}</p>
 				<div className='options'>
 					<TemperatureUnit temperatureUnit={temperatureUnit} onClick={handleTemperatureUnitChange} />
-					<Timezones timezone={timezone} onChange={handleTimezoneChange} />
+					<Timezone timezone={timezone} onChange={handleTimezoneChange} />
 					<ToggleTheme value={toggleTheme} onChange={setToggleTheme}/>
 					<ChangeLanguage language={i18n.language} changeLanguage={changeLanguage} />
 				</div>

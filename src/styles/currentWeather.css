@@ -20,17 +20,40 @@
     margin: 0;
 }
 
+.temperature {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5rem;
+    width: 100%;
+    border-bottom: var(--division-border);
+}
+
+.current-temperature {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
 .weather-details {
     display: flex;
     flex-direction: column;
-    gap: 6px 12px;
+    height: 100%;
+    justify-content: space-around;
     opacity: 0.9;
     color: var(--text-secondary);
     width: 100%;
+    gap: 1rem;
 }
 
 .weather-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+@media (min-width: 900px) {
+    .weather-details {
+        gap: 0;
+    }
 }

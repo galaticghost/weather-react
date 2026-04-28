@@ -36,7 +36,7 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
                             <li className="forecast-item" key={index}>
                                 <span>{weather.hour}</span>
                                 <span className="forecast-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</span>
-                                <span>{t("forecast.rainChance")} {weather.precipitation_probability}%,</span>
+                                <span>{t("forecast.rainChance")} {weather.precipitation_probability}%</span>
                                 <span>{t(getCloudCoverDescription(weather.cloudCover))}</span>
                             </li>
                         ))}

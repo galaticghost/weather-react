@@ -1,0 +1,28 @@
+.timezone-select {
+  padding: 0.8rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  width: 100%;
+
+  appearance: none; /* remove estilo padrão */
+  cursor: pointer;
+}
+
+.timezone-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.timezone-wrapper::after {
+  content: "▼";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  pointer-events: none;
+}

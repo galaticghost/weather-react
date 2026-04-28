@@ -1,5 +1,6 @@
 import type { ChangeEventHandler } from "react";
 import { useTranslation } from "react-i18next";
+import "../styles/timezone.css";
 
 interface ContinentTimezones {
     continent: string,
@@ -77,23 +78,25 @@ export default function Timezones({ timezone, onChange }: Props) {
     return (
         <div className="item">
             <p>{t("timezone.timezone")}</p>
-            <select
-                name="timezones"
-                id="timezones"
-                className="timezones-selection"
-                value={timezone}
-                onChange={onChange}
-            >
-                {options.map((optgroup: ContinentTimezones) => (
-                    <optgroup key={optgroup.continent} label={optgroup.continent}>{
-                        optgroup.timezones.map((option: Timezone) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))
-                    }</optgroup>
-                ))}
-            </select>
+            <div className="timezone-wrapper">
+                <select
+                    name="timezones"
+                    id="timezones"
+                    className="timezone-select"
+                    value={timezone}
+                    onChange={onChange}
+                >
+                    {options.map((optgroup: ContinentTimezones) => (
+                        <optgroup key={optgroup.continent} label={optgroup.continent}>{
+                            optgroup.timezones.map((option: Timezone) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))
+                        }</optgroup>
+                    ))}
+                </select>
+            </div>
         </div>
     )
 }

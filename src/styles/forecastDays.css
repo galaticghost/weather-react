@@ -1,10 +1,13 @@
 .forecast-days {
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
 }
 
 .forecast-list {
     display: flex;
     flex-direction: row;
+    height: 100%;
     padding: 0.5rem 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -19,6 +22,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
 .scroll-button {
@@ -70,6 +74,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     border-radius: 0.5rem;
     border: 1px solid var(--surface-border);
     padding: 1rem;
