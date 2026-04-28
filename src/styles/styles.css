@@ -81,19 +81,19 @@ body {
 }
 
 .button {
-  padding: 0.8rem 0.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--surface-border);
-  background: rgba(0, 0, 0, 0.2);
-  color: var(--text-primary);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    padding: 0.8rem 0.8rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--surface-border);
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .button:hover {    
-  color: var(--text-secondary);
-  border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-secondary);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .button-active{
@@ -152,6 +152,10 @@ body {
     * {
         font-size: 14px;
     }
+}
+
+.footer {
+    text-align: center;
 }
 
 .loader-div {
@@ -269,5 +273,9 @@ body {
 
     .item:last-child{
         border-right: none;
+    }
+
+    .footer {
+        grid-area: footer;
     }
 }

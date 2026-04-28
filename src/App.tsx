@@ -107,7 +107,8 @@ function App() {
 				</div>
 			</section>
 
-			<footer>
+			<footer className='footer'>
+				<p>@{new Date().getFullYear()}</p>
 			</footer>
 		</>
 	)

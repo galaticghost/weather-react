@@ -2,13 +2,21 @@
   padding: 0.8rem 0.8rem;
   border-radius: 0.5rem;
   border: 1px solid var(--surface-border);
-  background: var(--surface-elevated);
+  background: rgba(0, 0, 0, 0.2);
   color: var(--text-primary);
   font-size: 0.9rem;
   width: 100%;
-
-  appearance: none; /* remove estilo padrão */
+  appearance: none;
   cursor: pointer;
+}
+
+.timezone-select optgroup {
+  background: var(--surface-elevated);
+}
+
+.timezone-select option {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
 }
 
 .timezone-wrapper {
