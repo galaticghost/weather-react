@@ -4,7 +4,7 @@ const staticImages = import.meta.glob(
 ) as Record<string, { default: string }>;
 
 const animatedImages = import.meta.glob(
-    "../assets/animated-images/*.svg",
+    "../assets/weather/animated-images/*.svg",
     {eager: true} // Eager = Sem lazy loading
 ) as Record<string, {default: string}>;
 
@@ -30,9 +30,9 @@ export function getCloudCoverDescription(cloudCover: number): string {
     return "cloudCover.overcast";
 }
 
-export function getWeatherImage(hour: number, cloudCover: number, rain: number, animated: boolean = false): string {
+export function getWeatherImage(hour: number, cloudCover: number, 
+    rain: number, animated: boolean = false): string {
     const image = animated ? animatedImagesArr : staticImageArr;
-    
     if (hour > 18 || hour < 6 ) {
         if (rain >= 50) {
             if (cloudCover <= 70) return image["rain-night"];
@@ -49,7 +49,6 @@ export function getWeatherImage(hour: number, cloudCover: number, rain: number, 
             if (cloudCover <= 70) return image["rain-day"];
             return image["overcast-day-rain"];
         }
-
         if (cloudCover <= 10) return image["clear-day"];
         if (cloudCover <= 30) return image["few-clouds-day"];
         if (cloudCover <= 70) return image["partly-cloudy-day"];
