@@ -7,7 +7,7 @@ export type Location = {
 
 export type HourlyForecast = {
     temperature: number;
-    hour: string;
+    time: string;
     cloudCover: number;
     precipitation_probability: number;
 }

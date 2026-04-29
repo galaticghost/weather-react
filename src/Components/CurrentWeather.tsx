@@ -1,4 +1,4 @@
-import locationIcon from "../assets/location.svg";
+import locationIcon from "../assets/icons/location.svg";
 import { getCloudCoverDescription, formatTemp } from "../utils/utils";
 import type { CurrentWeather } from "../types/types";
 import { useTranslation } from "react-i18next";

@@ -24,8 +24,8 @@ export function useWeather(location: Location | null, timezone: string,) {
                         cloudCover: data.current.cloud_cover
                     };
 
-                    const hourlyForecast: HourlyForecast[] = data.hourly.time.map((_time: string, index: number) => ({
-                        hour: data.hourly.time[index].slice(11, 16),
+                    const hourlyForecast: HourlyForecast[] = data.hourly.time.map((time: string, index: number) => ({
+                        time,
                         temperature: Math.round(data.hourly.temperature_2m[index]),
                         cloudCover: data.hourly.cloud_cover[index],
                         precipitation_probability: data.hourly.precipitation_probability[index]

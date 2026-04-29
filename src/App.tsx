@@ -9,11 +9,10 @@ import ForecastDays from './Components/ForecastDays.tsx';
 
 import './styles/styles.css';
 import './styles/reset.css';
-import locationIcon from './assets/location.svg';
+import locationIcon from './assets/icons/location.svg';
 
 import type { Location, WeatherData } from "./types/types";
 import { useCurrentLocation } from './hooks/useCurrentLocation.tsx';
-//import { getWeatherGradient } from './utils/utils.ts';
 import { useTranslation } from 'react-i18next';
 import ChangeLanguage from './Components/ChangeLanguage.tsx';
 import ToggleTheme from './Components/ToggleTheme.tsx';
@@ -27,7 +26,7 @@ function App() {
 
 	const { weather, isLoading }: { weather: WeatherData | null, isLoading: boolean } =
 		useWeather(location, timezone);
-	//const [background, setBackground] = useState("");
+
 	const { t, i18n } = useTranslation();
 	useEffect(() => {
 		document.documentElement.dataset.theme =
@@ -39,13 +38,6 @@ function App() {
 			setLocation(currentLocation);
 		}
 	}, [currentLocation]);
-
-	/*useEffect(() => {
-		if (weather) {
-			setBackground(getWeatherGradient(weather.current.cloudCover,
-				weather.current.precipitation));
-		}
-	}, [weather])*/
 
 	const handleLocationChange = (location: Location) => {
 		setLocation(location);

@@ -1,8 +1,8 @@
+import { getCloudCoverDescription, getWeatherImage, getHours, formatTemp, formatHour } from "../utils/utils";
 import { useRef } from "react";
-import type { HourlyForecast } from "../types/types";
-import { getCloudCoverDescription, formatTemp } from "../utils/utils";
 import { useTranslation } from "react-i18next";
 import "../styles/forecastDays.css";
+import type { HourlyForecast } from "../types/types";
 
 interface Props {
     forecast: HourlyForecast[] | undefined;
@@ -34,7 +34,8 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
                     <ul className="forecast-list" ref={scrollRef} >
                         {forecast.map((weather, index) => (
                             <li className="forecast-item" key={index}>
-                                <span>{weather.hour}</span>
+                                <span>{formatHour(weather.time)}</span>
+                                <span><img className="weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,weather.precipitation_probability)}/></span>
                                 <span className="forecast-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</span>
                                 <span>{t("forecast.rainChance")} {weather.precipitation_probability}%</span>
                                 <span>{t(getCloudCoverDescription(weather.cloudCover))}</span>
