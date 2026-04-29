@@ -13,6 +13,7 @@ export type HourlyForecast = {
 }
 
 export type CurrentWeather = {
+    time: string,
     temperature: number;
     apparentTemperature: number;
     precipitation: number;
@@ -28,6 +29,7 @@ export type WeatherData = {
 
 export type ApiWeatherResponse = {
     current: {
+        time: string,
         temperature_2m: number,
         apparent_temperature: number,
         wind_speed_10m: number,

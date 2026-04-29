@@ -1,5 +1,5 @@
 import locationIcon from "../assets/icons/location.svg";
-import { getCloudCoverDescription, formatTemp, getWeatherImage } from "../utils/utils";
+import { getCloudCoverDescription, formatTemp, getHours, getWeatherImage } from "../utils/utils";
 import type { CurrentWeather } from "../types/types";
 import { useTranslation } from "react-i18next";
 import "../styles/currentWeather.css";
@@ -31,7 +31,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
 
                         <p className="cloud-cover">{t(getCloudCoverDescription(weather.cloudCover))}</p>
                         </div>
-                        <img className="weather-image" src={getWeatherImage(new Date().getHours(),weather.cloudCover,10,true)} />
+                        <img className="weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,10,true)} />
                     </div>
                     <div className="weather-details">
                         <div className="weather-row">

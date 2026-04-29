@@ -16,6 +16,7 @@ export function useWeather(location: Location | null, timezone: string,) {
                 const data = await getWeather(location, timezone, controller);
                 if (data !== null) {
                     const currentWeather: CurrentWeather = {
+                        time: data.current.time,
                         temperature: Math.round(data.current.temperature_2m),
                         apparentTemperature: Math.round(data.current.apparent_temperature),
                         wind: data.current.wind_speed_10m,
