@@ -34,7 +34,13 @@
         "temperatureUnit": "Temperature Unit"
     },
     "timezone": {
-        "timezone": "Time Zone"
+        "timezone": "Time Zone",
+        "latinAmerica": "Latin America",
+        "northAmerica": "North America",
+        "europe": "Europe",
+        "asia": "Asia",
+        "oceania": "Oceania",
+        "africa": "Africa"
     },
     "loading": "Loading..."
 }
