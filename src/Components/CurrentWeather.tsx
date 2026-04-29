@@ -24,14 +24,13 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
                     </h2>
                     <div className="temperature">
                         <div className="current-temperature-details">
-                        <p className="current-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
+                            <p className="current-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
 
-                        <p className="apparent-temperature">🌡️{t('currentWeather.apparentTemperature')}:
-                            {formatTemp(weather.apparentTemperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
+                            <p className="apparent-temperature">🌡️{t('currentWeather.apparentTemperature')}: {formatTemp(weather.apparentTemperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</p>
 
-                        <p className="cloud-cover">{t(getCloudCoverDescription(weather.cloudCover))}</p>
+                            <p className="cloud-cover">{t(getCloudCoverDescription(weather.cloudCover))}</p>
                         </div>
-                        <img className="weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,10,true)} />
+                        <img className="current-weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,10,true)} />
                     </div>
                     <div className="weather-details">
                         <div className="weather-row">

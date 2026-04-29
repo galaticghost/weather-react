@@ -21,7 +21,7 @@
 
 .temperature {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     line-height: 1.5rem;
     width: 100%;
     border-bottom: var(--division-border);
@@ -43,6 +43,11 @@
     color: var(--text-secondary);
     width: 100%;
     gap: 1rem;
+}
+
+.current-weather-image {
+    height: 50%;
+    width: 50%;
 }
 
 .weather-row {
