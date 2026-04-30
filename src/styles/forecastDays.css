@@ -88,3 +88,8 @@
     color: var(--text-primary);
     font-size: 1.25rem;
 }
+
+.forecast-cloud-cover {
+    min-height: 2.4em;
+    text-align: center;
+}

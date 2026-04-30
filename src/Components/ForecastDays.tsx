@@ -38,7 +38,7 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
                                 <span><img className="weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,weather.precipitation_probability)}/></span>
                                 <span className="forecast-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</span>
                                 <span>{t("forecast.rainChance")} {weather.precipitation_probability}%</span>
-                                <span>{t(getCloudCoverDescription(weather.cloudCover))}</span>
+                                <span className="forecast-cloud-cover">{t(getCloudCoverDescription(weather.cloudCover))}</span>
                             </li>
                         ))}
 

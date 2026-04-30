@@ -30,7 +30,7 @@ export default function MainWeather({ weather, temperatureUnit, city, country, i
 
                             <p className="cloud-cover">{t(getCloudCoverDescription(weather.cloudCover))}</p>
                         </div>
-                        <img className="current-weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,10,true)} />
+                        <img className="" src={getWeatherImage(getHours(weather.time),weather.cloudCover,10,true)} />
                     </div>
                     <div className="weather-details">
                         <div className="weather-row">
