@@ -35,7 +35,7 @@ export default function ForecastDays({ forecast, isLoading, temperatureUnit }: P
                         {forecast.map((weather, index) => (
                             <li className="forecast-item" key={index}>
                                 <span>{formatHour(weather.time)}</span>
-                                <span><img className="weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,weather.precipitation_probability)}/></span>
+                                <span><img className="weather-image" src={getWeatherImage(getHours(weather.time),weather.cloudCover,weather.rain)}/></span>
                                 <span className="forecast-temperature">{formatTemp(weather.temperature, temperatureUnit)}º{temperatureUnit === "celsius" ? "C" : "F"}</span>
                                 <span>{t("forecast.rainChance")} {weather.precipitation_probability}%</span>
                                 <span className="forecast-cloud-cover">{t(getCloudCoverDescription(weather.cloudCover))}</span>

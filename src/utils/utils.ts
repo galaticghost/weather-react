@@ -34,7 +34,7 @@ export function getWeatherImage(hour: number, cloudCover: number,
     rain: number, animated: boolean = false): string {
     const image = animated ? animatedImagesArr : staticImageArr;
     if (hour > 18 || hour < 6 ) {
-        if (rain >= 50) {
+        if (rain > 0) {
             if (cloudCover <= 70) return image["rain-night"];
             return image["overcast-night-rain"];
         }
@@ -45,7 +45,7 @@ export function getWeatherImage(hour: number, cloudCover: number,
         if (cloudCover <= 90) return image["overcast-night"]; //Não achei um cloudy-night decente
         return image["overcast-night"];
     } else {
-        if (rain >= 50) {
+        if (rain > 0) {
             if (cloudCover <= 70) return image["rain-day"];
             return image["overcast-day-rain"];
         }

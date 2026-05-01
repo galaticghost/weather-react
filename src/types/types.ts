@@ -6,6 +6,7 @@ export type Location = {
 };
 
 export type HourlyForecast = {
+    rain: number;
     temperature: number;
     time: string;
     cloudCover: number;
@@ -39,6 +40,7 @@ export type ApiWeatherResponse = {
     };
     hourly: {
         time: string[],
+        rain: number[]
         temperature_2m: number[],
         cloud_cover: number[],
         precipitation_probability: number[],
